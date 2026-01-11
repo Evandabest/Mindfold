@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import sys
 import os
-
+import time
 # Add Generators directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'Generators'))
 
@@ -168,7 +168,9 @@ def generate_starbattle():
         
         n = int(data.get('size', 8))
         ensure_unique = data.get('ensure_unique', 'true').lower() == 'true'
-        seed = int(data.get('seed')) if data.get('seed') else None
+        seed = data.get('seed')
+        seed = int(seed) if seed is not None else int(time.time_ns())
+
         max_star_tries = int(data.get('max_star_tries', 2000))
         max_region_tries = int(data.get('max_region_tries_per_star', 200))
         
