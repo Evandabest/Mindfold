@@ -74,6 +74,93 @@ class APIService {
             rectangles: puzzle.rectangles
         )
     }
+    
+    static func generateTakuzu(
+        size: Int = 8,
+        givensRatio: Double = 0.25,
+        ensureUnique: Bool = true,
+        seed: Int? = nil
+    ) async throws -> TakuzuPuzzle {
+        var components = URLComponents(string: "\(baseURL)/api/generate/takuzu")!
+        var queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "size", value: String(size)),
+            URLQueryItem(name: "givens_ratio", value: String(givensRatio)),
+            URLQueryItem(name: "ensure_unique", value: String(ensureUnique))
+        ]
+        
+        if let seed = seed {
+            queryItems.append(URLQueryItem(name: "seed", value: String(seed)))
+        }
+        
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            throw APIError.invalidURL
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw APIError.invalidResponse
+        }
+        
+        let decoder = JSONDecoder()
+        let puzzle = try decoder.decode(TakuzuPuzzleResponse.self, from: data)
+        
+        guard puzzle.success else {
+            throw APIError.apiError(puzzle.error ?? "Unknown error")
+        }
+        
+        return TakuzuPuzzle(
+            size: puzzle.size,
+            puzzle: puzzle.puzzle,
+            solution: puzzle.solution
+        )
+    }
+    
+    static func generateStarBattle(
+        size: Int = 8,
+        ensureUnique: Bool = false,
+        seed: Int? = nil
+    ) async throws -> StarBattlePuzzle {
+        var components = URLComponents(string: "\(baseURL)/api/generate/starbattle")!
+        var queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "size", value: String(size)),
+            URLQueryItem(name: "ensure_unique", value: String(ensureUnique))
+        ]
+        
+        if let seed = seed {
+            queryItems.append(URLQueryItem(name: "seed", value: String(seed)))
+        }
+        
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            throw APIError.invalidURL
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw APIError.invalidResponse
+        }
+        
+        let decoder = JSONDecoder()
+        let puzzle = try decoder.decode(StarBattlePuzzleResponse.self, from: data)
+        
+        guard puzzle.success else {
+            throw APIError.apiError(puzzle.error ?? "Unknown error")
+        }
+        
+        return StarBattlePuzzle(
+            size: puzzle.size,
+            regions: puzzle.regions,
+            solutionStars: puzzle.solutionStars,
+            starPositions: puzzle.starPositions ?? []
+        )
+    }
 }
 
 enum APIError: Error, LocalizedError {
@@ -126,5 +213,58 @@ struct ShikakuPuzzle {
     let cols: Int
     let board: [[Int]]  // 2D array where numbers indicate rectangle areas
     let rectangles: [RectangleData]
+}
+
+// Takuzu response models
+struct TakuzuPuzzleResponse: Codable {
+    let success: Bool
+    let size: Int
+    let puzzle: [[Int?]]  // None becomes nil in Swift
+    let solution: [[Int]]
+    let givensRatio: Double?
+    let error: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case success, size, puzzle, solution
+        case givensRatio = "givens_ratio"
+        case error
+    }
+}
+
+// Takuzu puzzle model
+struct TakuzuPuzzle {
+    let size: Int
+    let puzzle: [[Int?]]  // nil = empty, 0 or 1 = given value
+    let solution: [[Int]]  // Full solution (0 or 1)
+}
+
+// Star Battle response models
+struct StarBattlePuzzleResponse: Codable {
+    let success: Bool
+    let size: Int
+    let regions: [[Int]]  // n x n grid of region IDs
+    let solutionStars: [[Bool]]  // n x n grid of star positions
+    let starPositions: [StarPosition]?
+    let error: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case success, size, regions
+        case solutionStars = "solution_stars"
+        case starPositions = "star_positions"
+        case error
+    }
+}
+
+struct StarPosition: Codable {
+    let row: Int
+    let col: Int
+}
+
+// Star Battle puzzle model
+struct StarBattlePuzzle {
+    let size: Int
+    let regions: [[Int]]  // n x n grid of region IDs [0..n-1]
+    let solutionStars: [[Bool]]  // n x n grid of star positions
+    let starPositions: [StarPosition]
 }
 
