@@ -171,8 +171,8 @@ def generate_starbattle():
         seed = data.get('seed')
         seed = int(seed) if seed is not None else int(time.time_ns())
 
-        max_star_tries = int(data.get('max_star_tries', 2000))
-        max_region_tries = int(data.get('max_region_tries_per_star', 200))
+        max_star_tries = int(data.get('max_star_tries', 3000))
+        max_region_tries = int(data.get('max_region_tries_per_star', 300))
         
         # Generate puzzle
         regions, solution_stars = generate_starbattle_1star(

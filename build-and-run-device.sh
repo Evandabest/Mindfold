@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Build and Run script for Almanac-clone iOS app on Physical Device
+# Build and Run script for Mindfold iOS app on Physical Device
 # This script builds the app and runs it on a connected iPhone
 
 set -e  # Exit on error
 
 # Configuration
-SCHEME="Almanac-clone"
-PROJECT_PATH="Almanac-clone.xcodeproj"
-BUNDLE_ID="Evandabest.Almanac-clone"
+SCHEME="Mindfold"
+PROJECT_PATH="Mindfold.xcodeproj"
+BUNDLE_ID="Evandabest.Mindfold"
 BUILD_DIR="build"
 
 # Colors for output
@@ -18,7 +18,7 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -e "${BLUE}🚀 Building Almanac-clone app for physical device...${NC}"
+echo -e "${BLUE}🚀 Building Mindfold app for physical device...${NC}"
 
 # Find connected iOS device
 echo -e "${BLUE}🔍 Finding connected iOS device...${NC}"
@@ -80,7 +80,7 @@ APP_PATH=$(find "$BUILD_DIR/Build/Products/Debug-iphoneos" -name "*.app" -type d
 
 if [ -z "$APP_PATH" ]; then
     echo -e "${YELLOW}❌ Could not find built app. Trying alternative path...${NC}"
-    APP_PATH=$(find "$BUILD_DIR" -name "Almanac-clone.app" -type d | head -n 1)
+    APP_PATH=$(find "$BUILD_DIR" -name "Mindfold.app" -type d | head -n 1)
 fi
 
 if [ -z "$APP_PATH" ]; then

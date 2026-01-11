@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Build and Run script for Almanac-clone iOS app
+# Build and Run script for Mindfold iOS app
 # This script builds the app and runs it on the iOS Simulator
 
 set -e  # Exit on error
 
 # Configuration
-SCHEME="Almanac-clone"
-PROJECT_PATH="Almanac-clone.xcodeproj"
-BUNDLE_ID="Evandabest.Almanac-clone"
+SCHEME="Mindfold"
+PROJECT_PATH="Mindfold.xcodeproj"
+BUNDLE_ID="Evandabest.Mindfold"
 PREFERRED_SIMULATOR="iPhone 16 Pro"  # Change this to your preferred simulator (iPhone 16, iPhone 16 Pro, etc.)
 BUILD_DIR="build"
 
@@ -18,7 +18,7 @@ BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-echo -e "${BLUE}🚀 Building Almanac-clone app...${NC}"
+echo -e "${BLUE}🚀 Building Mindfold app...${NC}"
 
 # Find available iPhone simulator
 echo -e "${BLUE}🔍 Finding available iPhone simulator...${NC}"
@@ -94,7 +94,7 @@ APP_PATH=$(find "$BUILD_DIR/Build/Products/Debug-iphonesimulator" -name "*.app" 
 
 if [ -z "$APP_PATH" ]; then
     echo -e "${YELLOW}❌ Could not find built app. Trying alternative path...${NC}"
-    APP_PATH=$(find "$BUILD_DIR" -name "Almanac-clone.app" -type d | head -n 1)
+    APP_PATH=$(find "$BUILD_DIR" -name "Mindfold.app" -type d | head -n 1)
 fi
 
 if [ -z "$APP_PATH" ]; then

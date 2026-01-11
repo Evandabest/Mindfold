@@ -6,14 +6,14 @@
 2. **Unlock your iPhone** and trust the computer if prompted
 3. **Open the project in Xcode**:
    ```bash
-   open Almanac-clone.xcodeproj
+   open Mindfold.xcodeproj
    ```
 4. **Select your device**:
    - At the top of Xcode, click the device selector (next to the scheme)
    - Choose your connected iPhone from the list
 5. **Configure Signing**:
    - Click on the project in the navigator
-   - Select the "Almanac-clone" target
+   - Select the "Mindfold" target
    - Go to "Signing & Capabilities" tab
    - Check "Automatically manage signing"
    - Select your Team (your Apple ID)
