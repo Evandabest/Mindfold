@@ -12,37 +12,37 @@
 			containerPortal = 00EBA2E82F11B85B00604261 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 00EBA2EF2F11B85C00604261;
-			remoteInfo = "Mindfold";
+			remoteInfo = Mindfold;
 		};
 		00EBA30B2F11B85D00604261 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 00EBA2E82F11B85B00604261 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 00EBA2EF2F11B85C00604261;
-			remoteInfo = "Mindfold";
+			remoteInfo = Mindfold;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00EBA2F02F11B85C00604261 /* Mindfold.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mindfold.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		00EBA3002F11B85D00604261 /* MindfoldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MindfoldTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		00EBA30A2F11B85D00604261 /* MindfoldUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MindfoldUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		00EBA2F02F11B85C00604261 /* Mindfold.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mindfold.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		00EBA3002F11B85D00604261 /* MindfoldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindfoldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00EBA30A2F11B85D00604261 /* MindfoldUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MindfoldUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		00EBA2F22F11B85C00604261 /* Mindfold */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Mindfold";
+			path = Mindfold;
 			sourceTree = "<group>";
 		};
 		00EBA3032F11B85D00604261 /* MindfoldTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "MindfoldTests";
+			path = MindfoldTests;
 			sourceTree = "<group>";
 		};
 		00EBA30D2F11B85D00604261 /* MindfoldUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "MindfoldUITests";
+			path = MindfoldUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -110,10 +110,10 @@
 			fileSystemSynchronizedGroups = (
 				00EBA2F22F11B85C00604261 /* Mindfold */,
 			);
-			name = "Mindfold";
+			name = Mindfold;
 			packageProductDependencies = (
 			);
-			productName = "Mindfold";
+			productName = Mindfold;
 			productReference = 00EBA2F02F11B85C00604261 /* Mindfold.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -133,10 +133,10 @@
 			fileSystemSynchronizedGroups = (
 				00EBA3032F11B85D00604261 /* MindfoldTests */,
 			);
-			name = "MindfoldTests";
+			name = MindfoldTests;
 			packageProductDependencies = (
 			);
-			productName = "MindfoldTests";
+			productName = MindfoldTests;
 			productReference = 00EBA3002F11B85D00604261 /* MindfoldTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -156,10 +156,10 @@
 			fileSystemSynchronizedGroups = (
 				00EBA30D2F11B85D00604261 /* MindfoldUITests */,
 			);
-			name = "MindfoldUITests";
+			name = MindfoldUITests;
 			packageProductDependencies = (
 			);
-			productName = "MindfoldUITests";
+			productName = MindfoldUITests;
 			productReference = 00EBA30A2F11B85D00604261 /* MindfoldUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
@@ -399,7 +399,7 @@
 				DEVELOPMENT_TEAM = T4WS95HM35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mindfold";
+				INFOPLIST_KEY_CFBundleDisplayName = Mindfold;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.puzzle-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -411,7 +411,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Evandabest.Mindfold";
+				PRODUCT_BUNDLE_IDENTIFIER = Evandabest.Mindfold;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -430,7 +430,7 @@
 				DEVELOPMENT_TEAM = T4WS95HM35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Mindfold";
+				INFOPLIST_KEY_CFBundleDisplayName = Mindfold;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.puzzle-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -442,7 +442,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Evandabest.Mindfold";
+				PRODUCT_BUNDLE_IDENTIFIER = Evandabest.Mindfold;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -459,7 +459,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Evandabest.MindfoldTests";
+				PRODUCT_BUNDLE_IDENTIFIER = Evandabest.MindfoldTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -477,7 +477,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Evandabest.MindfoldTests";
+				PRODUCT_BUNDLE_IDENTIFIER = Evandabest.MindfoldTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -493,12 +493,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Evandabest.MindfoldUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = Evandabest.MindfoldUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Mindfold";
+				TEST_TARGET_NAME = Mindfold;
 			};
 			name = Debug;
 		};
@@ -509,12 +509,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Evandabest.MindfoldUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = Evandabest.MindfoldUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "Mindfold";
+				TEST_TARGET_NAME = Mindfold;
 			};
 			name = Release;
 		};

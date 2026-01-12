@@ -211,6 +211,61 @@ class APIService {
             tiles: puzzle.tiles
         )
     }
+    
+    static func generateLITS(
+        rows: Int = 6,
+        cols: Int = 7,
+        seed: Int? = nil,
+        minRegionSize: Int = 4,
+        maxRegionSize: Int = 8,
+        ensureUnique: Bool = true,
+        maxRegionAttempts: Int = 2000,
+        maxSolveAttemptsPerRegionMap: Int = 500
+    ) async throws -> LITSPuzzle {
+        var components = URLComponents(string: "\(baseURL)/api/generate/lits")!
+        var queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "rows", value: String(rows)),
+            URLQueryItem(name: "cols", value: String(cols)),
+            URLQueryItem(name: "min_region_size", value: String(minRegionSize)),
+            URLQueryItem(name: "max_region_size", value: String(maxRegionSize)),
+            URLQueryItem(name: "ensure_unique", value: String(ensureUnique)),
+            URLQueryItem(name: "max_region_attempts", value: String(maxRegionAttempts)),
+            URLQueryItem(name: "max_solve_attempts_per_region_map", value: String(maxSolveAttemptsPerRegionMap))
+        ]
+        
+        if let seed = seed {
+            queryItems.append(URLQueryItem(name: "seed", value: String(seed)))
+        }
+        
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            throw APIError.invalidURL
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw APIError.invalidResponse
+        }
+        
+        let decoder = JSONDecoder()
+        let puzzle = try decoder.decode(LITSPuzzleResponse.self, from: data)
+        
+        guard puzzle.success else {
+            throw APIError.apiError(puzzle.error ?? "Unknown error")
+        }
+        
+        return LITSPuzzle(
+            rows: puzzle.rows,
+            cols: puzzle.cols,
+            regions: puzzle.regions,
+            solutionShape: puzzle.solutionShape,
+            solutionFilled: puzzle.solutionFilled,
+            placements: puzzle.placements
+        )
+    }
 }
 
 enum APIError: Error, LocalizedError {
@@ -370,5 +425,50 @@ struct NetwalkPuzzle {
     let solutionMasks: [[Int]]  // Solution masks (correct orientation)
     let rotations: [[Int]]  // Initial rotations
     let tiles: [[NetwalkTileData]]  // Tile metadata
+}
+
+// LITS response models
+struct LITSPuzzleResponse: Codable {
+    let success: Bool
+    let rows: Int
+    let cols: Int
+    let regions: [[Int]]  // Region ID map
+    let solutionShape: [[String?]]  // Shape letters (L/I/T/S) or nil
+    let solutionFilled: [[Bool]]  // Filled cells
+    let placements: [String: LITSPlacementData]  // Region ID -> placement
+    let error: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case success, rows, cols, regions
+        case solutionShape = "solution_shape"
+        case solutionFilled = "solution_filled"
+        case placements, error
+    }
+}
+
+struct LITSPlacementData: Codable {
+    let regionId: Int
+    let shape: String
+    let mask: Int
+    let adjMask: Int
+    let blocks: [Int]
+    let cells: [[Int]]  // [[r, c], ...]
+    
+    enum CodingKeys: String, CodingKey {
+        case regionId = "region_id"
+        case shape, mask
+        case adjMask = "adj_mask"
+        case blocks, cells
+    }
+}
+
+// LITS puzzle model
+struct LITSPuzzle {
+    let rows: Int
+    let cols: Int
+    let regions: [[Int]]  // Region ID map
+    let solutionShape: [[String?]]  // Shape letters (L/I/T/S) or nil
+    let solutionFilled: [[Bool]]  // Filled cells
+    let placements: [String: LITSPlacementData]  // Region ID -> placement
 }
 

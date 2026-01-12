@@ -10,6 +10,7 @@ from Netwalkgen import generate_network, build_tiles_from_puzzle
 from Shikakugen import generate_shikaku_board
 from Starbattlegen import generate_starbattle_1star
 from Takuzugen import generate_binary_puzzle, EMPTY
+from Litsgen import generate_lits
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -242,6 +243,68 @@ def generate_takuzu():
             'puzzle': puzzle_grid,
             'solution': solution_grid,
             'givens_ratio': givens_ratio
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 400
+
+@app.route('/api/generate/lits', methods=['GET', 'POST'])
+def generate_lits_endpoint():
+    """Generate a LITS puzzle"""
+    try:
+        # Get parameters from request
+        if request.method == 'POST':
+            data = request.get_json() or {}
+        else:
+            data = request.args.to_dict()
+        
+        rows = int(data.get('rows', 6))
+        cols = int(data.get('cols', 7))
+        seed = int(data.get('seed')) if data.get('seed') else None
+        min_region_size = int(data.get('min_region_size', 5))
+        max_region_size = int(data.get('max_region_size', 9))
+        ensure_unique = data.get('ensure_unique', 'true').lower() == 'true'
+        max_region_attempts = int(data.get('max_region_attempts', 2000))
+        max_solve_attempts_per_region_map = int(data.get('max_solve_attempts_per_region_map', 500))
+        
+        # Generate puzzle
+        puzzle = generate_lits(
+            rows, cols,
+            seed=seed,
+            min_region_size=min_region_size,
+            max_region_size=max_region_size,
+            ensure_unique=ensure_unique,
+            max_region_attempts=max_region_attempts,
+            max_solve_attempts_per_region_map=max_solve_attempts_per_region_map
+        )
+        
+        # Convert to JSON-serializable format
+        regions_grid = [[int(puzzle.regions[r][c]) for c in range(cols)] for r in range(rows)]
+        solution_shape_grid = [[puzzle.solution_shape[r][c] for c in range(cols)] for r in range(rows)]
+        solution_filled_grid = [[bool(puzzle.solution_filled[r][c]) for c in range(cols)] for r in range(rows)]
+        
+        # Convert placements to JSON-serializable format
+        placements_data = {}
+        for region_id, placement in puzzle.placements.items():
+            placements_data[int(region_id)] = {
+                'region_id': placement.region_id,
+                'shape': placement.shape,
+                'mask': placement.mask,
+                'adj_mask': placement.adj_mask,
+                'blocks': list(placement.blocks),
+                'cells': [[r, c] for r, c in placement.cells]
+            }
+        
+        return jsonify({
+            'success': True,
+            'rows': rows,
+            'cols': cols,
+            'regions': regions_grid,
+            'solution_shape': solution_shape_grid,
+            'solution_filled': solution_filled_grid,
+            'placements': placements_data
         })
     except Exception as e:
         return jsonify({
