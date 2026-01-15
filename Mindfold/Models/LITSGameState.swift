@@ -144,10 +144,8 @@ class LITSGameState: ObservableObject {
             }
         }
         
-        print("=== Validating Region Shapes ===")
-        
         // Check each region
-        for regionId in uniqueRegions.sorted() {
+        for regionId in uniqueRegions {
             // Get all filled cells in this region
             var filledCells: [(row: Int, col: Int)] = []
             for r in 0..<rows {
@@ -159,35 +157,21 @@ class LITSGameState: ObservableObject {
             }
             
             // Must have exactly 4 cells to be a valid tetromino
-            if filledCells.count != 4 {
-                print("Region \(regionId): \(filledCells.count) filled cells (need exactly 4)")
-                continue
-            }
+            guard filledCells.count == 4 else { continue }
             
             // Check if it's a 2x2 square (not a valid tetromino)
             if is2x2Square(cells: filledCells) {
-                print("Region \(regionId): 2x2 square detected - invalid")
                 continue  // Skip 2x2 squares - they're not valid tetrominoes
             }
             
-            let isConnected = isValidTetromino(cells: filledCells)
-            let shape = identifyShape(cells: filledCells)
-            
-            print("Region \(regionId): 4 cells at \(filledCells), connected=\(isConnected), shape=\(shape ?? "nil")")
-            
             // Check if it forms a valid tetromino (connected, 4 cells, not 2x2)
             // AND it must be one of the canonical L, I, T, S shapes
-            if isConnected && shape != nil {
+            if isValidTetromino(cells: filledCells) && identifyShape(cells: filledCells) != nil {
                 newValidRegions.insert(regionId)
-                print("  -> VALID")
-            } else {
-                print("  -> INVALID")
             }
         }
         
         validRegions = newValidRegions
-        print("Valid regions: \(validRegions)")
-        print("================================")
         validateRules()  // Check for violations after updating valid regions
     }
     
@@ -323,9 +307,6 @@ class LITSGameState: ObservableObject {
             if pattern == normalizedSet { return "S" }
         }
         
-        // Debug: print unrecognized shape
-        print("Unrecognized shape: \(normalizedSet.map { "(\($0.row),\($0.col))" }.joined(separator: ", "))")
-        
         return nil  // Not a recognized LITS shape
     }
     
@@ -437,27 +418,6 @@ class LITSGameState: ObservableObject {
             }
         }
         
-        // Debug: Print region status
-        print("=== LITS Completion Check ===")
-        print("Total unique regions: \(uniqueRegions.count)")
-        print("Valid regions: \(validRegions.count) - \(validRegions)")
-        print("Violation cells: \(violationCells.count)")
-        
-        // Check each region's status
-        for regionId in uniqueRegions.sorted() {
-            var filledCells: [(row: Int, col: Int)] = []
-            for r in 0..<rows {
-                for c in 0..<cols {
-                    if regions[r][c] == regionId && grid[r][c] == .filled {
-                        filledCells.append((row: r, col: c))
-                    }
-                }
-            }
-            let isValid = validRegions.contains(regionId)
-            let shape = identifyShape(cells: filledCells)
-            print("Region \(regionId): \(filledCells.count) filled cells, valid=\(isValid), shape=\(shape ?? "nil")")
-        }
-        
         // Check if all regions have valid tetrominoes
         let allRegionsValid = uniqueRegions.allSatisfy { regionId in
             validRegions.contains(regionId)
@@ -465,9 +425,6 @@ class LITSGameState: ObservableObject {
         
         // Check if there are no violations
         let noViolations = violationCells.isEmpty
-        
-        print("allRegionsValid: \(allRegionsValid), noViolations: \(noViolations)")
-        print("=============================")
         
         // Game is complete if:
         // 1. All regions have valid tetrominoes (exactly 4 connected cells, not 2x2)

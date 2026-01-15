@@ -97,6 +97,14 @@ struct ContentView: View {
             NetwalkGameView()
         case "LITS":
             LITSGameView()
+        case "Mastermind":
+            MastermindGameView()
+        case "Flood Fill":
+            FloodfillGameView()
+        case "Bridges":
+            BridgesGameView()
+        case "Number Snake":
+            NumberSnakeGameView()
         default:
             // Placeholder for other games
             Text("\(game.title) game coming soon")

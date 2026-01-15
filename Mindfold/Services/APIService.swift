@@ -266,6 +266,212 @@ class APIService {
             placements: puzzle.placements
         )
     }
+    
+    static func generateMastermind(
+        codeLen: Int = 4,
+        numColors: Int = 4,
+        allowRepeats: Bool = true,
+        avoidTrivial: Bool = true,
+        seed: Int? = nil
+    ) async throws -> MastermindPuzzle {
+        var components = URLComponents(string: "\(baseURL)/api/generate/mastermind")!
+        var queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "code_len", value: String(codeLen)),
+            URLQueryItem(name: "num_colors", value: String(numColors)),
+            URLQueryItem(name: "allow_repeats", value: String(allowRepeats)),
+            URLQueryItem(name: "avoid_trivial", value: String(avoidTrivial))
+        ]
+        
+        if let seed = seed {
+            queryItems.append(URLQueryItem(name: "seed", value: String(seed)))
+        }
+        
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            throw APIError.invalidURL
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw APIError.invalidResponse
+        }
+        
+        let decoder = JSONDecoder()
+        let puzzle = try decoder.decode(MastermindPuzzleResponse.self, from: data)
+        
+        guard puzzle.success else {
+            throw APIError.apiError(puzzle.error ?? "Unknown error")
+        }
+        
+        return MastermindPuzzle(
+            code: puzzle.code,
+            codeLen: puzzle.codeLen,
+            numColors: puzzle.numColors,
+            allowRepeats: puzzle.allowRepeats
+        )
+    }
+    
+    static func generateFloodfill(
+        rows: Int = 12,
+        cols: Int = 12,
+        numColors: Int = 4,
+        moveLimit: Int = 8,
+        seed: Int? = nil,
+        ensureSolvable: Bool = true,
+        maxTries: Int = 500,
+        noiseBlocks: Int = 14
+    ) async throws -> FloodfillPuzzle {
+        var components = URLComponents(string: "\(baseURL)/api/generate/floodfill")!
+        var queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "rows", value: String(rows)),
+            URLQueryItem(name: "cols", value: String(cols)),
+            URLQueryItem(name: "num_colors", value: String(numColors)),
+            URLQueryItem(name: "move_limit", value: String(moveLimit)),
+            URLQueryItem(name: "ensure_solvable", value: String(ensureSolvable)),
+            URLQueryItem(name: "max_tries", value: String(maxTries)),
+            URLQueryItem(name: "noise_blocks", value: String(noiseBlocks))
+        ]
+        
+        if let seed = seed {
+            queryItems.append(URLQueryItem(name: "seed", value: String(seed)))
+        }
+        
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            throw APIError.invalidURL
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw APIError.invalidResponse
+        }
+        
+        let decoder = JSONDecoder()
+        let puzzle = try decoder.decode(FloodfillPuzzleResponse.self, from: data)
+        
+        guard puzzle.success else {
+            throw APIError.apiError(puzzle.error ?? "Unknown error")
+        }
+        
+        return FloodfillPuzzle(
+            rows: puzzle.rows,
+            cols: puzzle.cols,
+            numColors: puzzle.numColors,
+            moveLimit: puzzle.moveLimit,
+            grid: puzzle.grid,
+            solution: puzzle.solution
+        )
+    }
+    
+    // MARK: - Bridges Generation
+    
+    static func generateBridges(
+        rows: Int = 9,
+        cols: Int = 9,
+        numNodes: Int = 16,
+        extraEdgeFactor: Double = 0.40,
+        doubleEdgeChance: Double = 0.35,
+        seed: Int? = nil,
+        maxTries: Int = 500
+    ) async throws -> BridgesPuzzle {
+        var components = URLComponents(string: "\(baseURL)/api/generate/bridges")!
+        var queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "rows", value: String(rows)),
+            URLQueryItem(name: "cols", value: String(cols)),
+            URLQueryItem(name: "num_nodes", value: String(numNodes)),
+            URLQueryItem(name: "extra_edge_factor", value: String(extraEdgeFactor)),
+            URLQueryItem(name: "double_edge_chance", value: String(doubleEdgeChance)),
+            URLQueryItem(name: "max_tries", value: String(maxTries))
+        ]
+        
+        if let seed = seed {
+            queryItems.append(URLQueryItem(name: "seed", value: String(seed)))
+        }
+        
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            throw APIError.invalidURL
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw APIError.invalidResponse
+        }
+        
+        let decoder = JSONDecoder()
+        let puzzle = try decoder.decode(BridgesPuzzleResponse.self, from: data)
+        
+        guard puzzle.success else {
+            throw APIError.invalidResponse
+        }
+        
+        return BridgesPuzzle(
+            rows: puzzle.rows,
+            cols: puzzle.cols,
+            nodes: puzzle.nodes,
+            solutionEdges: puzzle.solutionEdges
+        )
+    }
+    
+    // MARK: - Number Snake Generation
+    
+    static func generateNumberSnake(
+        rows: Int = 5,
+        cols: Int = 5,
+        numClues: Int = 6,
+        seed: Int? = nil,
+        keepEndpointsLabeled: Bool = true,
+        maxTries: Int = 2000
+    ) async throws -> NumberSnakePuzzle {
+        var components = URLComponents(string: "\(baseURL)/api/generate/numbersnake")!
+        var queryItems: [URLQueryItem] = [
+            URLQueryItem(name: "rows", value: String(rows)),
+            URLQueryItem(name: "cols", value: String(cols)),
+            URLQueryItem(name: "num_clues", value: String(numClues)),
+            URLQueryItem(name: "keep_endpoints_labeled", value: String(keepEndpointsLabeled)),
+            URLQueryItem(name: "max_tries", value: String(maxTries))
+        ]
+        
+        if let seed = seed {
+            queryItems.append(URLQueryItem(name: "seed", value: String(seed)))
+        }
+        
+        components.queryItems = queryItems
+        
+        guard let url = components.url else {
+            throw APIError.invalidURL
+        }
+        
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200 else {
+            throw APIError.invalidResponse
+        }
+        
+        let decoder = JSONDecoder()
+        let puzzle = try decoder.decode(NumberSnakePuzzleResponse.self, from: data)
+        
+        guard puzzle.success else {
+            throw APIError.invalidResponse
+        }
+        
+        return NumberSnakePuzzle(
+            rows: puzzle.rows,
+            cols: puzzle.cols,
+            clues: puzzle.clues,
+            solutionPath: puzzle.solutionPath
+        )
+    }
 }
 
 enum APIError: Error, LocalizedError {
@@ -470,5 +676,126 @@ struct LITSPuzzle {
     let solutionShape: [[String?]]  // Shape letters (L/I/T/S) or nil
     let solutionFilled: [[Bool]]  // Filled cells
     let placements: [String: LITSPlacementData]  // Region ID -> placement
+}
+
+// Mastermind/Tower response model
+struct MastermindPuzzleResponse: Codable {
+    let success: Bool
+    let code: [Int]  // Secret code (color indices 0..num_colors-1)
+    let codeLen: Int
+    let numColors: Int
+    let allowRepeats: Bool
+    let error: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case success, code, error
+        case codeLen = "code_len"
+        case numColors = "num_colors"
+        case allowRepeats = "allow_repeats"
+    }
+}
+
+// Mastermind/Tower puzzle model
+struct MastermindPuzzle {
+    let code: [Int]  // Secret code (color indices)
+    let codeLen: Int
+    let numColors: Int
+    let allowRepeats: Bool
+}
+
+// Floodfill/Mosaic response model
+struct FloodfillPuzzleResponse: Codable {
+    let success: Bool
+    let rows: Int
+    let cols: Int
+    let numColors: Int
+    let moveLimit: Int
+    let grid: [[Int]]  // Color indices 0..numColors-1
+    let solution: [[Int]]?  // Optional solution moves [[r, c, new_color], ...]
+    let error: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case success, rows, cols, grid, solution, error
+        case numColors = "num_colors"
+        case moveLimit = "move_limit"
+    }
+}
+
+// Floodfill/Mosaic puzzle model
+struct FloodfillPuzzle {
+    let rows: Int
+    let cols: Int
+    let numColors: Int
+    let moveLimit: Int
+    let grid: [[Int]]  // Color indices
+    let solution: [[Int]]?  // Optional solution
+}
+
+// Bridges response model
+struct BridgesPuzzleResponse: Codable {
+    let success: Bool
+    let rows: Int
+    let cols: Int
+    let nodes: [BridgesNode]
+    let solutionEdges: [BridgesEdge]
+    let error: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case success, rows, cols, nodes, error
+        case solutionEdges = "solution_edges"
+    }
+}
+
+struct BridgesNode: Codable, Identifiable {
+    let row: Int
+    let col: Int
+    let degree: Int
+    
+    var id: String { "\(row),\(col)" }
+}
+
+struct BridgesEdge: Codable {
+    let u: Int
+    let v: Int
+    let count: Int
+}
+
+// Bridges puzzle model
+struct BridgesPuzzle {
+    let rows: Int
+    let cols: Int
+    let nodes: [BridgesNode]
+    let solutionEdges: [BridgesEdge]
+}
+
+// Number Snake response model
+struct NumberSnakePuzzleResponse: Codable {
+    let success: Bool
+    let rows: Int
+    let cols: Int
+    let clues: [NumberSnakeClue]
+    let solutionPath: [[Int]]
+    let error: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case success, rows, cols, clues, error
+        case solutionPath = "solution_path"
+    }
+}
+
+struct NumberSnakeClue: Codable, Identifiable {
+    let value: Int
+    let row: Int
+    let col: Int
+    
+    var id: String { "\(row),\(col)" }
+}
+
+// Number Snake puzzle model
+struct NumberSnakePuzzle {
+    let rows: Int
+    let cols: Int
+    let clues: [NumberSnakeClue]
+    let solutionPath: [[Int]]
 }
 
