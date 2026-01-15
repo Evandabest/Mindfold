@@ -11,6 +11,10 @@ from Shikakugen import generate_shikaku_board
 from Starbattlegen import generate_starbattle_1star
 from Takuzugen import generate_binary_puzzle, EMPTY
 from Litsgen import generate_lits
+from Mastermindgen import generate_mastermind_secret, MastermindConfig
+from Floodfillgen import generate_mosaic
+from Bridgesgen import generate_atoms
+from Numbersnakegen import generate_snap
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -305,6 +309,191 @@ def generate_lits_endpoint():
             'solution_shape': solution_shape_grid,
             'solution_filled': solution_filled_grid,
             'placements': placements_data
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 400
+
+@app.route('/api/generate/mastermind', methods=['GET', 'POST'])
+def generate_mastermind():
+    """Generate a Mastermind/Tower puzzle secret"""
+    try:
+        # Get parameters from request
+        if request.method == 'POST':
+            data = request.get_json() or {}
+        else:
+            data = request.args.to_dict()
+        
+        code_len = int(data.get('code_len', 4))
+        num_colors = int(data.get('num_colors', 4))
+        allow_repeats = data.get('allow_repeats', 'true').lower() == 'true'
+        avoid_trivial = data.get('avoid_trivial', 'true').lower() == 'true'
+        seed = int(data.get('seed')) if data.get('seed') else None
+        
+        # Create config
+        config = MastermindConfig(
+            code_len=code_len,
+            num_colors=num_colors,
+            allow_repeats=allow_repeats
+        )
+        
+        # Generate secret
+        secret = generate_mastermind_secret(
+            seed=seed,
+            config=config,
+            avoid_trivial=avoid_trivial
+        )
+        
+        # Convert to JSON-serializable format
+        return jsonify({
+            'success': True,
+            'code': list(secret.code),
+            'code_len': secret.config.code_len,
+            'num_colors': secret.config.num_colors,
+            'allow_repeats': secret.config.allow_repeats
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 400
+
+@app.route('/api/generate/floodfill', methods=['GET', 'POST'])
+def generate_floodfill():
+    """Generate a Floodfill/Mosaic puzzle"""
+    try:
+        # Get parameters from request
+        if request.method == 'POST':
+            data = request.get_json() or {}
+        else:
+            data = request.args.to_dict()
+
+        rows = int(data.get('rows', 12))
+        cols = int(data.get('cols', 12))
+        num_colors = int(data.get('num_colors', 4))
+        move_limit = int(data.get('move_limit', 4))
+        seed = int(data.get('seed')) if data.get('seed') else None
+        ensure_solvable = data.get('ensure_solvable', 'true').lower() == 'true'
+        max_tries = int(data.get('max_tries', 500))
+        noise_blocks = int(data.get('noise_blocks', 14))
+
+        puzzle = generate_mosaic(
+            rows,
+            cols,
+            num_colors=num_colors,
+            move_limit=move_limit,
+            seed=seed,
+            ensure_solvable=ensure_solvable,
+            max_tries=max_tries,
+            noise_blocks=noise_blocks,
+        )
+
+        return jsonify({
+            'success': True,
+            'rows': puzzle.rows,
+            'cols': puzzle.cols,
+            'num_colors': puzzle.num_colors,
+            'move_limit': puzzle.move_limit,
+            'grid': [[int(puzzle.grid[r][c]) for c in range(puzzle.cols)] for r in range(puzzle.rows)],
+            'solution': ([[int(r), int(c), int(new_color)] for (r, c, new_color) in puzzle.solution]
+                         if puzzle.solution is not None else None),
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 400
+
+@app.route('/api/generate/bridges', methods=['GET', 'POST'])
+def generate_bridges():
+    """Generate a Bridges/Hashiwokakero puzzle"""
+    try:
+        # Get parameters from request
+        if request.method == 'POST':
+            data = request.get_json() or {}
+        else:
+            data = request.args.to_dict()
+
+        rows = int(data.get('rows', 9))
+        cols = int(data.get('cols', 9))
+        num_nodes = int(data.get('num_nodes', 16))
+        extra_edge_factor = float(data.get('extra_edge_factor', 0.40))
+        double_edge_chance = float(data.get('double_edge_chance', 0.35))
+        seed = int(data.get('seed')) if data.get('seed') else None
+        max_tries = int(data.get('max_tries', 500))
+
+        puzzle = generate_atoms(
+            rows=rows,
+            cols=cols,
+            num_nodes=num_nodes,
+            extra_edge_factor=extra_edge_factor,
+            double_edge_chance=double_edge_chance,
+            seed=seed,
+            max_tries=max_tries,
+        )
+
+        nodes = [
+            {'row': int(n.r), 'col': int(n.c), 'degree': int(n.degree)}
+            for n in puzzle.nodes
+        ]
+        solution_edges = [
+            {'u': int(e.u), 'v': int(e.v), 'count': int(e.count)}
+            for e in puzzle.solution_edges
+        ]
+
+        return jsonify({
+            'success': True,
+            'rows': puzzle.rows,
+            'cols': puzzle.cols,
+            'nodes': nodes,
+            'solution_edges': solution_edges,
+        })
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 400
+
+@app.route('/api/generate/numbersnake', methods=['GET', 'POST'])
+def generate_numbersnake():
+    """Generate a Number Snake / Snap puzzle"""
+    try:
+        # Get parameters from request
+        if request.method == 'POST':
+            data = request.get_json() or {}
+        else:
+            data = request.args.to_dict()
+
+        rows = int(data.get('rows', 5))
+        cols = int(data.get('cols', 5))
+        num_clues = int(data.get('num_clues', 6))
+        seed = int(data.get('seed')) if data.get('seed') else None
+        keep_endpoints_labeled = data.get('keep_endpoints_labeled', 'true').lower() == 'true'
+        max_tries = int(data.get('max_tries', 2000))
+
+        puzzle = generate_snap(
+            rows,
+            cols,
+            num_clues=num_clues,
+            seed=seed,
+            keep_endpoints_labeled=keep_endpoints_labeled,
+            max_tries=max_tries,
+        )
+
+        clues = [
+            {'value': int(c.value), 'row': int(c.r), 'col': int(c.c)}
+            for c in puzzle.clues
+        ]
+
+        return jsonify({
+            'success': True,
+            'rows': puzzle.rows,
+            'cols': puzzle.cols,
+            'clues': clues,
+            # Optional, useful for debugging/validation on client
+            'solution_path': [[int(r), int(c)] for (r, c) in puzzle.solution_path],
         })
     except Exception as e:
         return jsonify({
