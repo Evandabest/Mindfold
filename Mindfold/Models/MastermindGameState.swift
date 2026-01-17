@@ -25,6 +25,7 @@ class MastermindGameState: ObservableObject {
     var codeLen: Int
     var numColors: Int
     var allowRepeats: Bool
+    var maxGuesses: Int
     
     // Secret code to guess
     private var secretCode: [Int]
@@ -35,9 +36,6 @@ class MastermindGameState: ObservableObject {
     @Published var selectedColorIndex: Int = 0  // Currently selected color to place
     @Published var isComplete: Bool = false
     @Published var isWon: Bool = false
-    
-    // Maximum number of guesses allowed
-    let maxGuesses: Int = 10
     
     // Available colors (mapped to SwiftUI colors in view)
     static let colorPalette: [Color] = [
@@ -55,15 +53,17 @@ class MastermindGameState: ObservableObject {
         self.codeLen = puzzle.codeLen
         self.numColors = puzzle.numColors
         self.allowRepeats = puzzle.allowRepeats
+        self.maxGuesses = puzzle.maxAttempts
         self.secretCode = puzzle.code
         self.currentGuess = Array(repeating: nil, count: puzzle.codeLen)
     }
     
     // For preview/testing
-    init(codeLen: Int = 4, numColors: Int = 4, secretCode: [Int]? = nil) {
+    init(codeLen: Int = 4, numColors: Int = 4, maxGuesses: Int = 10, secretCode: [Int]? = nil) {
         self.codeLen = codeLen
         self.numColors = numColors
         self.allowRepeats = true
+        self.maxGuesses = maxGuesses
         self.secretCode = secretCode ?? Array(0..<codeLen)
         self.currentGuess = Array(repeating: nil, count: codeLen)
     }
@@ -73,6 +73,7 @@ class MastermindGameState: ObservableObject {
         self.codeLen = puzzle.codeLen
         self.numColors = puzzle.numColors
         self.allowRepeats = puzzle.allowRepeats
+        self.maxGuesses = puzzle.maxAttempts
         self.secretCode = puzzle.code
         self.guesses = []
         self.currentGuess = Array(repeating: nil, count: puzzle.codeLen)

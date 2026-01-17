@@ -438,7 +438,10 @@ struct MastermindGameView: View {
             let fetchedPuzzle = try await APIService.generateMastermind(
                 codeLen: 4,
                 numColors: 4,
-                allowRepeats: true
+                allowRepeats: true,
+                avoidTrivial: true,
+                maxAttempts: 10,
+                enforceSolvableWithinAttempts: true
             )
             
             await MainActor.run {

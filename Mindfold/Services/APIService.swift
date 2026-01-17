@@ -272,6 +272,9 @@ class APIService {
         numColors: Int = 4,
         allowRepeats: Bool = true,
         avoidTrivial: Bool = true,
+        maxAttempts: Int = 10,
+        enforceSolvableWithinAttempts: Bool = true,
+        maxTries: Int = 50000,
         seed: Int? = nil
     ) async throws -> MastermindPuzzle {
         var components = URLComponents(string: "\(baseURL)/api/generate/mastermind")!
@@ -279,7 +282,10 @@ class APIService {
             URLQueryItem(name: "code_len", value: String(codeLen)),
             URLQueryItem(name: "num_colors", value: String(numColors)),
             URLQueryItem(name: "allow_repeats", value: String(allowRepeats)),
-            URLQueryItem(name: "avoid_trivial", value: String(avoidTrivial))
+            URLQueryItem(name: "avoid_trivial", value: String(avoidTrivial)),
+            URLQueryItem(name: "max_attempts", value: String(maxAttempts)),
+            URLQueryItem(name: "enforce_solvable_within_attempts", value: String(enforceSolvableWithinAttempts)),
+            URLQueryItem(name: "max_tries", value: String(maxTries))
         ]
         
         if let seed = seed {
@@ -310,7 +316,8 @@ class APIService {
             code: puzzle.code,
             codeLen: puzzle.codeLen,
             numColors: puzzle.numColors,
-            allowRepeats: puzzle.allowRepeats
+            allowRepeats: puzzle.allowRepeats,
+            maxAttempts: puzzle.maxAttempts
         )
     }
     
@@ -685,6 +692,7 @@ struct MastermindPuzzleResponse: Codable {
     let codeLen: Int
     let numColors: Int
     let allowRepeats: Bool
+    let maxAttempts: Int
     let error: String?
     
     enum CodingKeys: String, CodingKey {
@@ -692,6 +700,7 @@ struct MastermindPuzzleResponse: Codable {
         case codeLen = "code_len"
         case numColors = "num_colors"
         case allowRepeats = "allow_repeats"
+        case maxAttempts = "max_attempts"
     }
 }
 
@@ -701,6 +710,7 @@ struct MastermindPuzzle {
     let codeLen: Int
     let numColors: Int
     let allowRepeats: Bool
+    let maxAttempts: Int
 }
 
 // Floodfill/Mosaic response model

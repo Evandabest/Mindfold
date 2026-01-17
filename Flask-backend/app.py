@@ -330,6 +330,9 @@ def generate_mastermind():
         num_colors = int(data.get('num_colors', 4))
         allow_repeats = data.get('allow_repeats', 'true').lower() == 'true'
         avoid_trivial = data.get('avoid_trivial', 'true').lower() == 'true'
+        max_attempts = int(data.get('max_attempts', 10))
+        enforce_solvable_within_attempts = data.get('enforce_solvable_within_attempts', 'true').lower() == 'true'
+        max_tries = int(data.get('max_tries', 50000))
         seed = int(data.get('seed')) if data.get('seed') else None
         
         # Create config
@@ -343,7 +346,10 @@ def generate_mastermind():
         secret = generate_mastermind_secret(
             seed=seed,
             config=config,
-            avoid_trivial=avoid_trivial
+            avoid_trivial=avoid_trivial,
+            max_attempts=max_attempts,
+            enforce_solvable_within_attempts=enforce_solvable_within_attempts,
+            max_tries=max_tries
         )
         
         # Convert to JSON-serializable format
@@ -352,7 +358,8 @@ def generate_mastermind():
             'code': list(secret.code),
             'code_len': secret.config.code_len,
             'num_colors': secret.config.num_colors,
-            'allow_repeats': secret.config.allow_repeats
+            'allow_repeats': secret.config.allow_repeats,
+            'max_attempts': secret.max_attempts
         })
     except Exception as e:
         return jsonify({
