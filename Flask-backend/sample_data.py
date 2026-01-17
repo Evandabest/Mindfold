@@ -11,13 +11,13 @@ import time
 from typing import Dict, Any, Optional
 
 # Base URL for the Flask server
-BASE_URL = "http://localhost:6000"
+BASE_URL = "http://localhost:8000"
 
 # Maximum retries per endpoint
 MAX_RETRIES = 5
 
 # Delay between retries (seconds)
-RETRY_DELAY = 2
+RETRY_DELAY = 0
 
 
 def make_request(endpoint: str, params: Dict[str, Any], max_retries: int = MAX_RETRIES) -> Optional[Dict[str, Any]]:
@@ -106,7 +106,9 @@ def generate_sample_data() -> Dict[str, Any]:
     print("3. Star Battle")
     params = {
         "size": 8,
-        "ensure_unique": "false",
+        "ensure_unique": "true",
+        "max_star_tries": 5000,
+        "max_region_tries_per_star": 500,
     }
     result = make_request("/api/generate/starbattle", params)
     if result:

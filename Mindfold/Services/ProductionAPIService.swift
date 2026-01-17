@@ -26,7 +26,7 @@ class ProductionAPIService: APIServiceProtocol {
         }
         
         // Default fallback
-        return "http://localhost:6000"
+        return "http://localhost:8000"
     }
     
     func generateShikaku(
