@@ -23,7 +23,7 @@ struct FloodfillGameView: View {
     var body: some View {
         ZStack {
             // Dark background
-            Color(red: 0.08, green: 0.1, blue: 0.12).ignoresSafeArea()
+            Color.black.ignoresSafeArea()
             
             VStack(spacing: 0) {
                 // Header
@@ -95,13 +95,6 @@ struct FloodfillGameView: View {
             // Help button
             Button(action: { showTutorial = true }) {
                 Image(systemName: "questionmark.circle")
-                    .foregroundColor(.white)
-                    .font(.system(size: 20))
-            }
-            
-            // Settings button
-            Button(action: {}) {
-                Image(systemName: "gearshape")
                     .foregroundColor(.white)
                     .font(.system(size: 20))
             }
@@ -206,7 +199,7 @@ struct FloodfillGameView: View {
                 Button(action: {
                     gameState.reset()
                 }) {
-                    Image(systemName: "arrow.counterclockwise")
+                    Image(systemName: "eraser")
                         .font(.system(size: 28))
                         .foregroundColor(.white)
                         .frame(width: 60, height: 60)

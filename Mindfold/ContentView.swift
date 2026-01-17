@@ -51,29 +51,6 @@ struct ContentView: View {
                                     .buttonStyle(PlainButtonStyle())
                                 }
                             }
-                            
-                            // Other puzzles section
-                            VStack(alignment: .leading, spacing: 16) {
-                                Text("Other puzzles")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .padding(.horizontal, 20)
-                                
-                                // Grid layout for other puzzles
-                                LazyVGrid(columns: [
-                                    GridItem(.flexible(), spacing: 12),
-                                    GridItem(.flexible(), spacing: 12)
-                                ], spacing: 12) {
-                                    ForEach(gameData.otherPuzzles) { puzzle in
-                                        OtherPuzzleCard(
-                                            title: puzzle.title,
-                                            color: puzzle.color,
-                                            icon: AnyView(OtherPuzzleIcon(iconName: puzzle.iconName))
-                                        )
-                                    }
-                                }
-                                .padding(.horizontal, 20)
-                            }
                             .padding(.bottom, 20)
                         }
                         .padding(.top, 0)

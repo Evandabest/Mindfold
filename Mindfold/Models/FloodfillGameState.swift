@@ -9,11 +9,11 @@ import SwiftUI
 
 class FloodfillGameState: ObservableObject {
     // Game configuration
-    let rows: Int
-    let cols: Int
-    let numColors: Int
-    let moveLimit: Int
-    let initialGrid: [[Int]]
+    var rows: Int
+    var cols: Int
+    var numColors: Int
+    var moveLimit: Int
+    var initialGrid: [[Int]]
     
     // Game state
     @Published var grid: [[Int]]
@@ -68,7 +68,12 @@ class FloodfillGameState: ObservableObject {
     
     // Update with new puzzle
     func update(with puzzle: FloodfillPuzzle) {
-        // Can't change let properties, but we can reset the game
+        // Update all properties with the new puzzle
+        self.rows = puzzle.rows
+        self.cols = puzzle.cols
+        self.numColors = puzzle.numColors
+        self.moveLimit = puzzle.moveLimit
+        self.initialGrid = puzzle.grid
         self.grid = puzzle.grid
         self.movesRemaining = puzzle.moveLimit
         self.selectedColorIndex = 0

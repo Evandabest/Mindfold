@@ -21,6 +21,13 @@ enum TakuzuCellState: Equatable {
     case filled(Int)  // User-filled value (0 or 1) - can be changed
 }
 
+// Move history for undo
+struct TakuzuMove {
+    let row: Int
+    let col: Int
+    let previousState: TakuzuCellState
+}
+
 // Game state
 class TakuzuGameState: ObservableObject {
     @Published var grid: [[TakuzuCellState]]
@@ -29,6 +36,7 @@ class TakuzuGameState: ObservableObject {
     
     let size: Int
     var solution: [[Int]]  // Changed to var so it can be updated
+    private var moveHistory: [TakuzuMove] = []  // Track moves for undo
     
     // Computed property for given positions (based on current grid state)
     var givenPositions: Set<GridPosition> {
@@ -73,6 +81,10 @@ class TakuzuGameState: ObservableObject {
         var newGrid = grid
         let currentState = newGrid[row][col]
         
+        // Save current state for undo
+        let move = TakuzuMove(row: row, col: col, previousState: currentState)
+        moveHistory.append(move)
+        
         switch currentState {
         case .empty:
             newGrid[row][col] = .filled(0)
@@ -103,12 +115,34 @@ class TakuzuGameState: ObservableObject {
         }
         
         var newGrid = grid
+        let currentState = newGrid[row][col]
+        
+        // Save current state for undo
+        let move = TakuzuMove(row: row, col: col, previousState: currentState)
+        moveHistory.append(move)
         
         if let val = value {
             newGrid[row][col] = .filled(val)
         } else {
             newGrid[row][col] = .empty
         }
+        
+        grid = newGrid
+        objectWillChange.send()
+        
+        // Check for violations and completion
+        checkViolations()
+        checkCompletion()
+    }
+    
+    // Undo last move
+    func undo() {
+        guard !moveHistory.isEmpty else { return }
+        
+        let lastMove = moveHistory.removeLast()
+        
+        var newGrid = grid
+        newGrid[lastMove.row][lastMove.col] = lastMove.previousState
         
         grid = newGrid
         objectWillChange.send()
@@ -148,6 +182,7 @@ class TakuzuGameState: ObservableObject {
         grid = newGrid
         isComplete = false
         violationCells = []
+        moveHistory = []  // Clear move history
         objectWillChange.send()
     }
     

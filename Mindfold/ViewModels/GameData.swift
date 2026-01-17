@@ -20,11 +20,5 @@ class GameData: ObservableObject {
         Game(title: "Bridges", description: "Connect dots with bridges", color: Color(red: 0.5, green: 0.7, blue: 1.0), iconName: "circle.grid.cross"),
         Game(title: "Number Snake", description: "Draw path connecting numbers in order", color: Color(red: 0.7, green: 0.5, blue: 1.0), iconName: "number")
     ]
-    
-    // Other puzzles data
-    let otherPuzzles: [OtherPuzzle] = [
-        OtherPuzzle(title: "Plates", color: Color(red: 0.5, green: 0.8, blue: 0.5), iconName: "circle.grid.2x2"),
-        OtherPuzzle(title: "Sets", color: Color(red: 0.5, green: 0.7, blue: 1.0), iconName: "square.grid.3x3")
-    ]
 }
 

@@ -45,18 +45,10 @@ struct TakuzuGameView: View {
                     Spacer()
                     
                     // Help and Settings icons
-                    HStack(spacing: 16) {
-                        Button(action: { showTutorial = true }) {
-                            Image(systemName: "questionmark.bubble")
-                                .foregroundColor(.white)
-                                .font(.system(size: 20))
-                        }
-                        
-                        Button(action: {}) {
-                            Image(systemName: "gearshape")
-                                .foregroundColor(.white)
-                                .font(.system(size: 20))
-                        }
+                    Button(action: { showTutorial = true }) {
+                        Image(systemName: "questionmark.circle")
+                            .foregroundColor(.white)
+                            .font(.system(size: 20))
                     }
                 }
                 .padding(.horizontal, 20)
@@ -156,17 +148,29 @@ struct TakuzuGameView: View {
                 .frame(width: boardWidth, height: boardHeight)
                 .padding(.horizontal, 20)
                 
-                // Reset button
-                Button(action: {
-                    gameState.reset(with: puzzle.puzzle)
-                }) {
-                    Text("Reset")
-                        .foregroundColor(.white)
-                        .font(.system(size: 16, weight: .semibold))
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 12)
-                        .background(Color.red.opacity(0.7))
-                        .cornerRadius(8)
+                // Control buttons
+                HStack(spacing: 30) {
+                    Button(action: {
+                        gameState.undo()
+                    }) {
+                        Image(systemName: "arrow.uturn.backward")
+                            .font(.system(size: 28))
+                            .foregroundColor(.white)
+                            .frame(width: 60, height: 60)
+                            .background(Color(white: 0.2))
+                            .cornerRadius(12)
+                    }
+                    
+                    Button(action: {
+                        gameState.reset(with: puzzle.puzzle)
+                    }) {
+                        Image(systemName: "eraser")
+                            .font(.system(size: 28))
+                            .foregroundColor(.white)
+                            .frame(width: 60, height: 60)
+                            .background(Color(white: 0.2))
+                            .cornerRadius(12)
+                    }
                 }
                 .padding(.top, 20)
                 .padding(.bottom, 10)

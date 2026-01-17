@@ -15,6 +15,12 @@ enum StarBattleCellState: Equatable {
     case star  // User has placed a star
 }
 
+// Move history for undo
+struct StarBattleMove {
+    let grid: [[StarBattleCellState]]
+    let autofilledDots: Set<GridPosition>
+}
+
 // Game state
 class StarBattleGameState: ObservableObject {
     @Published var grid: [[StarBattleCellState]]
@@ -27,6 +33,7 @@ class StarBattleGameState: ObservableObject {
     
     // Track which dots were placed by autofill (not manually by user)
     private var autofilledDots: Set<GridPosition> = []
+    private var moveHistory: [StarBattleMove] = []  // Track moves for undo
     
     // Predefined vibrant colors for regions
     private let regionColors: [Color] = [
@@ -54,6 +61,10 @@ class StarBattleGameState: ObservableObject {
     
     // Toggle cell state (empty -> dot -> star -> empty)
     func toggleCell(row: Int, col: Int, autofill: Bool = false) {
+        // Save current state for undo
+        let move = StarBattleMove(grid: grid, autofilledDots: autofilledDots)
+        moveHistory.append(move)
+        
         var newGrid = grid
         let currentState = newGrid[row][col]
         
@@ -82,6 +93,22 @@ class StarBattleGameState: ObservableObject {
         }
         
         grid = newGrid
+        objectWillChange.send()
+        
+        // Check for violations and completion
+        checkViolations()
+        checkCompletion()
+    }
+    
+    // Undo last move
+    func undo() {
+        guard !moveHistory.isEmpty else { return }
+        
+        let lastMove = moveHistory.removeLast()
+        
+        grid = lastMove.grid
+        autofilledDots = lastMove.autofilledDots
+        
         objectWillChange.send()
         
         // Check for violations and completion
@@ -288,6 +315,10 @@ class StarBattleGameState: ObservableObject {
     
     // Clear all black dots (called when autofill is toggled off)
     func clearAllDots() {
+        // Save current state for undo
+        let move = StarBattleMove(grid: grid, autofilledDots: autofilledDots)
+        moveHistory.append(move)
+        
         var newGrid = grid
         var removedAny = false
         
@@ -320,6 +351,7 @@ class StarBattleGameState: ObservableObject {
         isComplete = false
         violationCells = []
         autofilledDots = []
+        moveHistory = []  // Clear move history
         objectWillChange.send()
     }
     

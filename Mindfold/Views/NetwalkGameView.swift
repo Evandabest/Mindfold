@@ -47,18 +47,10 @@ struct NetwalkGameView: View {
                     Spacer()
                     
                     // Help and Settings icons
-                    HStack(spacing: 16) {
-                        Button(action: { showTutorial = true }) {
-                            Image(systemName: "questionmark.bubble")
-                                .foregroundColor(.white)
-                                .font(.system(size: 20))
-                        }
-                        
-                        Button(action: {}) {
-                            Image(systemName: "gearshape")
-                                .foregroundColor(.white)
-                                .font(.system(size: 20))
-                        }
+                    Button(action: { showTutorial = true }) {
+                        Image(systemName: "questionmark.circle")
+                            .foregroundColor(.white)
+                            .font(.system(size: 20))
                     }
                 }
                 .padding(.horizontal, 20)

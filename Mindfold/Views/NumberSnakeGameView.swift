@@ -36,18 +36,10 @@ struct NumberSnakeGameView: View {
                     
                     Spacer()
                     
-                    HStack(spacing: 16) {
-                        Button(action: { showTutorial = true }) {
-                            Image(systemName: "questionmark.bubble")
-                                .foregroundColor(.white)
-                                .font(.system(size: 20))
-                        }
-                        
-                        Button(action: {}) {
-                            Image(systemName: "gearshape")
-                                .foregroundColor(.white)
-                                .font(.system(size: 20))
-                        }
+                    Button(action: { showTutorial = true }) {
+                        Image(systemName: "questionmark.circle")
+                            .foregroundColor(.white)
+                            .font(.system(size: 20))
                     }
                 }
                 .padding(.horizontal, 20)
@@ -191,7 +183,7 @@ struct NumberSnakeGameView: View {
             Button(action: {
                 gameState.clearPath()
             }) {
-                Image(systemName: "eraser")
+                Image(systemName: "arrow.uturn.backward")
                     .font(.system(size: 28))
                     .foregroundColor(.white)
                     .frame(width: 60, height: 60)
@@ -202,7 +194,7 @@ struct NumberSnakeGameView: View {
             Button(action: {
                 gameState.reset()
             }) {
-                Image(systemName: "arrow.clockwise")
+                Image(systemName: "eraser")
                     .font(.system(size: 28))
                     .foregroundColor(.white)
                     .frame(width: 60, height: 60)

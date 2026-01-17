@@ -13,7 +13,7 @@ struct FloodfillTutorialView: View {
     var body: some View {
         ZStack {
             // Dark background
-            Color(red: 0.08, green: 0.1, blue: 0.12).ignoresSafeArea()
+            Color.black.ignoresSafeArea()
             
             VStack(spacing: 0) {
                 // Header

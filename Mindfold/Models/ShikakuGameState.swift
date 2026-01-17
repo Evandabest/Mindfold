@@ -235,7 +235,42 @@ class ShikakuGameState: ObservableObject {
         return true
     }
     
-    // Remove a rectangle (for undo functionality)
+    // Undo last placed rectangle
+    func undo() {
+        guard !placedRectangles.isEmpty else { return }
+        
+        // Remove the last placed rectangle
+        let lastRect = placedRectangles.removeLast()
+        
+        // Create a new grid array to trigger @Published update
+        var newGrid = grid
+        
+        // Restore cells to their original state
+        for cell in lastRect.rect.allCells() {
+            // Check if this cell had a hint (from the occupied state or original)
+            if case .occupied(_, _, let hintValue) = newGrid[cell.y][cell.x], let hint = hintValue {
+                newGrid[cell.y][cell.x] = .hint(hint)
+            } else if let hint = hintPositions.first(where: { $0.x == cell.x && $0.y == cell.y }) {
+                newGrid[cell.y][cell.x] = .hint(hint.value)
+            } else {
+                newGrid[cell.y][cell.x] = .empty
+            }
+        }
+        
+        grid = newGrid
+        
+        // Decrement color index so next rectangle uses the same color
+        if nextColorIndex > 0 {
+            nextColorIndex -= 1
+        }
+        
+        // Force UI update
+        objectWillChange.send()
+        
+        checkCompletion()
+    }
+    
+    // Remove a rectangle (for tap removal functionality)
     func removeRectangle(id: UUID) {
         guard let index = placedRectangles.firstIndex(where: { $0.id == id }) else {
             return
