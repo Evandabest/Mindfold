@@ -21,30 +21,11 @@ struct NumberSnakeGameView: View {
             
             VStack(spacing: 0) {
                 // Top Header
-                HStack {
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.white)
-                            .font(.system(size: 20, weight: .medium))
-                    }
-                    
-                    Spacer()
-                    
-                    Text("Number Snake")
-                        .foregroundColor(.white)
-                        .font(.system(size: 24, weight: .bold))
-                    
-                    Spacer()
-                    
-                    Button(action: { showTutorial = true }) {
-                        Image(systemName: "questionmark.circle")
-                            .foregroundColor(.white)
-                            .font(.system(size: 20))
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 10)
-                .padding(.bottom, 16)
+                GameHeaderView(
+                    gameTitle: "Number Snake",
+                    onDismiss: { dismiss() },
+                    onHelp: { showTutorial = true }
+                )
                 
                 // Error message (if any)
                 if let error = gameState.errorMessage {

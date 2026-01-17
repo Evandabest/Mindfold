@@ -28,33 +28,11 @@ struct StarBattleGameView: View {
             
             VStack(spacing: 0) {
                 // Top Header
-                HStack {
-                    // Back button
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.white)
-                            .font(.system(size: 20, weight: .medium))
-                    }
-                    
-                    Spacer()
-                    
-                    // Game Title
-                    Text("Star Battle")
-                        .foregroundColor(.white)
-                        .font(.system(size: 24, weight: .bold))
-                    
-                    Spacer()
-                    
-                    // Help and Settings icons
-                    Button(action: { showTutorial = true }) {
-                        Image(systemName: "questionmark.circle")
-                            .foregroundColor(.white)
-                            .font(.system(size: 20))
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 10)
-                .padding(.bottom, 24)
+                GameHeaderView(
+                    gameTitle: "Star Battle",
+                    onDismiss: { dismiss() },
+                    onHelp: { showTutorial = true }
+                )
                 
                 // Game Board or Loading/Error State
                 if isLoading {

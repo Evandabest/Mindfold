@@ -68,32 +68,11 @@ struct MastermindGameView: View {
     
     // MARK: - Header
     private var gameHeader: some View {
-        HStack {
-            // Back button
-            Button(action: { dismiss() }) {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(.white)
-                    .font(.system(size: 20, weight: .medium))
-            }
-            
-            Spacer()
-            
-            // Title
-            Text("Mastermind")
-                .foregroundColor(.white)
-                .font(.system(size: 20, weight: .semibold))
-            
-            Spacer()
-            
-            // Help button
-            Button(action: { showTutorial = true }) {
-                Image(systemName: "questionmark.circle")
-                    .foregroundColor(.white)
-                    .font(.system(size: 20))
-            }
-        }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 12)
+        GameHeaderView(
+            gameTitle: "Mastermind",
+            onDismiss: { dismiss() },
+            onHelp: { showTutorial = true }
+        )
     }
     
     // MARK: - Game Content

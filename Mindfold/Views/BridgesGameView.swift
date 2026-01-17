@@ -21,30 +21,11 @@ struct BridgesGameView: View {
             
             VStack(spacing: 0) {
                 // Top Header
-                HStack {
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.white)
-                            .font(.system(size: 20, weight: .medium))
-                    }
-                    
-                    Spacer()
-                    
-                    Text("Bridges")
-                        .foregroundColor(.white)
-                        .font(.system(size: 24, weight: .bold))
-                    
-                    Spacer()
-                    
-                    Button(action: { showTutorial = true }) {
-                        Image(systemName: "questionmark.circle")
-                            .foregroundColor(.white)
-                            .font(.system(size: 20))
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 10)
-                .padding(.bottom, 24)
+                GameHeaderView(
+                    gameTitle: "Bridges",
+                    onDismiss: { dismiss() },
+                    onHelp: { showTutorial = true }
+                )
                 
                 // Game Board or Loading/Error State
                 if isLoading {

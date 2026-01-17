@@ -30,33 +30,11 @@ struct ShikakuGameView: View {
             
             VStack(spacing: 0) {
                 // Top Header
-                HStack {
-                    // Back button
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "chevron.left")
-                            .foregroundColor(.white)
-                            .font(.system(size: 20, weight: .medium))
-                    }
-                    
-                    Spacer()
-                    
-                    // Game Title
-                    Text("Shikaku")
-                        .foregroundColor(.white)
-                        .font(.system(size: 24, weight: .bold))
-                    
-                    Spacer()
-                    
-                    // Help icon
-                    Button(action: { showTutorial = true }) {
-                        Image(systemName: "questionmark.circle")
-                            .foregroundColor(.white)
-                            .font(.system(size: 20))
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 10)
-                .padding(.bottom, 24)
+                GameHeaderView(
+                    gameTitle: "Shikaku",
+                    onDismiss: { dismiss() },
+                    onHelp: { showTutorial = true }
+                )
                 
                 // Game Board or Loading/Error State
                 if isLoading {
