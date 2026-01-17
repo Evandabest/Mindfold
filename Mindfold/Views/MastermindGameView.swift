@@ -106,24 +106,30 @@ struct MastermindGameView: View {
             ScrollViewReader { proxy in
                 ScrollView {
                     VStack(spacing: 8) {
-                        // Empty rows at the top
-                        let emptyRows = max(0, gameState.maxGuesses - gameState.guesses.count - (gameState.isComplete ? 0 : 1))
-                        ForEach(0..<emptyRows, id: \.self) { _ in
-                            emptyGuessRow
+                        // Empty/current guess rows at the top
+                        let emptyRows = max(0, gameState.maxGuesses - gameState.guesses.count)
+                        ForEach(0..<emptyRows, id: \.self) { index in
+                            if index == emptyRows - 1 && !gameState.isComplete {
+                                // Last empty row (lowest) gets the current guess row with arrow
+                                currentGuessRow
+                                    .id("current")
+                            } else {
+                                emptyGuessRow(showArrow: false)
+                            }
                         }
                         
                         // Previous guesses (in reverse order, most recent at bottom)
                         ForEach(Array(gameState.guesses.enumerated().reversed()), id: \.element.id) { index, guess in
                             guessRow(guess: guess, rowIndex: index)
                         }
-                        
-                        // Current guess row at the bottom (if game not complete)
-                        if !gameState.isComplete {
-                            currentGuessRow
-                                .id("current")
-                        }
                     }
                     .padding(.horizontal, 20)
+                }
+                .onAppear {
+                    // Scroll to bottom on initial load
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        proxy.scrollTo("current", anchor: .bottom)
+                    }
                 }
                 .onChange(of: gameState.guesses.count) { _, _ in
                     withAnimation {
@@ -146,33 +152,43 @@ struct MastermindGameView: View {
     
     // MARK: - Secret Code Row
     private var secretCodeRow: some View {
-        HStack(spacing: 12) {
-            ForEach(0..<gameState.codeLen, id: \.self) { index in
-                if gameState.isComplete {
-                    // Show the secret code
-                    Circle()
-                        .fill(gameState.getColor(for: gameState.getSecretCode()[index]))
-                        .frame(width: 44, height: 44)
-                } else {
-                    // Show question marks
-                    ZStack {
-                        Circle()
-                            .fill(Color(white: 0.3))
-                            .frame(width: 44, height: 44)
-                        Text("?")
-                            .foregroundColor(.white)
-                            .font(.system(size: 20, weight: .bold))
+        HStack(spacing: 0) {
+            Spacer()
+            
+            HStack(spacing: 0) {
+                HStack(spacing: 8) {
+                    ForEach(0..<gameState.codeLen, id: \.self) { index in
+                        if gameState.isComplete {
+                            // Show the secret code
+                            RoundedRectangle(cornerRadius: 6)
+                                .fill(gameState.getColor(for: gameState.getSecretCode()[index]))
+                                .frame(width: 36, height: 36)
+                        } else {
+                            // Show question marks
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 6)
+                                    .fill(Color(white: 0.3))
+                                    .frame(width: 36, height: 36)
+                                Text("?")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 16, weight: .bold))
+                            }
+                        }
                     }
                 }
+                
+                Spacer()
+                    .frame(width: 56)
             }
+            .padding(.vertical, 10)
+            .padding(.horizontal, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color(white: 0.5), lineWidth: 2)
+            )
+            
+            Spacer()
         }
-        .padding(.vertical, 12)
-        .padding(.horizontal, 20)
-        .background(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(Color(white: 0.5), lineWidth: 2)
-        )
-        .padding(.horizontal, 40)
     }
     
     // MARK: - Guess Rows
@@ -180,94 +196,104 @@ struct MastermindGameView: View {
         HStack(spacing: 0) {
             Spacer()
             
-            // Color balls
-            HStack(spacing: 12) {
-                ForEach(0..<gameState.codeLen, id: \.self) { index in
-                    Circle()
-                        .fill(gameState.getColor(for: guess.colors[index]))
-                        .frame(width: 44, height: 44)
+            // Row content
+            HStack(spacing: 0) {
+                // Color squares
+                HStack(spacing: 8) {
+                    ForEach(0..<gameState.codeLen, id: \.self) { index in
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(gameState.getColor(for: guess.colors[index]))
+                            .frame(width: 36, height: 36)
+                    }
                 }
+                
+                // Feedback squares
+                feedbackView(feedback: guess.feedback)
+                    .padding(.leading, 12)
             }
-            
-            // Feedback dots (very close spacing)
-            feedbackView(feedback: guess.feedback)
-                .padding(.leading, 16)
+            .padding(.vertical, 6)
+            .padding(.horizontal, 12)
+            .background(
+                Rectangle()
+                    .fill(Color.clear)
+                    .overlay(
+                        Rectangle()
+                            .fill(Color(white: 0.4))
+                            .frame(height: 1),
+                        alignment: .bottom
+                    )
+            )
             
             Spacer()
         }
-        .padding(.vertical, 8)
-        .background(
-            Rectangle()
-                .fill(Color.clear)
-                .overlay(
-                    Rectangle()
-                        .fill(Color(white: 0.4))
-                        .frame(height: 1),
-                    alignment: .bottom
-                )
-        )
     }
     
     private var currentGuessRow: some View {
         HStack(spacing: 0) {
             Spacer()
             
-            // Color balls (not tappable, filled automatically)
-            HStack(spacing: 12) {
-                ForEach(0..<gameState.codeLen, id: \.self) { index in
-                    Circle()
-                        .fill(colorForCurrentGuess(at: index))
-                        .frame(width: 44, height: 44)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.white.opacity(0.3), lineWidth: 2)
-                        )
-                }
-            }
+            // Arrow indicator for current active row
+            Image(systemName: "arrowtriangle.right.fill")
+                .foregroundColor(.yellow)
+                .font(.system(size: 12))
+                .frame(width: 20)
             
-            // Submit button (only visible when guess is complete)
-            if gameState.isCurrentGuessComplete {
-                Button(action: {
-                    print("=== Submitting Guess ===")
-                    let guessColors = gameState.currentGuess.compactMap { $0 }
-                    print("Guess: \(guessColors)")
-                    let secret = gameState.getSecretCode()
-                    print("Secret: \(secret)")
-                    
-                    gameState.submitGuess()
-                    
-                    if let lastGuess = gameState.guesses.last {
-                        print("Feedback: \(lastGuess.feedback.exactMatches) exact, \(lastGuess.feedback.colorMatches) color-only")
+            // Row content
+            HStack(spacing: 0) {
+                // Color squares (not tappable, filled automatically)
+                HStack(spacing: 8) {
+                    ForEach(0..<gameState.codeLen, id: \.self) { index in
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(colorForCurrentGuess(at: index))
+                            .frame(width: 36, height: 36)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 6)
+                                    .stroke(Color.white.opacity(0.3), lineWidth: 2)
+                            )
                     }
-                    print("=======================")
-                }) {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20))
-                        .frame(width: 44, height: 44)
-                        .background(Color(white: 0.3))
-                        .clipShape(Circle())
                 }
-                .padding(.leading, 16)
-            } else {
-                // Placeholder for alignment
-                Spacer()
-                    .frame(width: 60)
+                
+                // Submit button (only visible when guess is complete)
+                if gameState.isCurrentGuessComplete {
+                    Button(action: {
+                        print("=== Submitting Guess ===")
+                        let guessColors = gameState.currentGuess.compactMap { $0 }
+                        print("Guess: \(guessColors)")
+                        let secret = gameState.getSecretCode()
+                        print("Secret: \(secret)")
+                        
+                        gameState.submitGuess()
+                        
+                        if let lastGuess = gameState.guesses.last {
+                            print("Feedback: \(lastGuess.feedback.exactMatches) exact, \(lastGuess.feedback.colorMatches) color-only")
+                        }
+                        print("=======================")
+                    }) {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.white)
+                            .font(.system(size: 18))
+                            .frame(width: 36, height: 36)
+                            .background(Color(white: 0.3))
+                            .clipShape(RoundedRectangle(cornerRadius: 6))
+                    }
+                    .padding(.leading, 12)
+                } else {
+                    // Placeholder for alignment
+                    Spacer()
+                        .frame(width: 56)
+                }
             }
+            .padding(.vertical, 6)
+            .padding(.horizontal, 12)
+            .overlay(
+                Rectangle()
+                    .fill(Color(white: 0.4))
+                    .frame(height: 1),
+                alignment: .bottom
+            )
             
             Spacer()
         }
-        .padding(.vertical, 8)
-        .background(
-            Rectangle()
-                .fill(Color.white.opacity(0.05))
-        )
-        .overlay(
-            Rectangle()
-                .fill(Color(white: 0.4))
-                .frame(height: 1),
-            alignment: .bottom
-        )
     }
     
     private func colorForCurrentGuess(at index: Int) -> Color {
@@ -278,34 +304,33 @@ struct MastermindGameView: View {
         }
     }
     
-    private var emptyGuessRow: some View {
+    private func emptyGuessRow(showArrow: Bool) -> some View {
         HStack(spacing: 0) {
             Spacer()
             
-            HStack(spacing: 12) {
-                ForEach(0..<gameState.codeLen, id: \.self) { _ in
-                    Circle()
-                        .fill(Color(white: 0.25))
-                        .frame(width: 44, height: 44)
+            HStack(spacing: 0) {
+                HStack(spacing: 8) {
+                    ForEach(0..<gameState.codeLen, id: \.self) { _ in
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(Color(white: 0.25))
+                            .frame(width: 36, height: 36)
+                    }
                 }
+                
+                Spacer()
+                    .frame(width: 56)
             }
-            
-            Spacer()
-                .frame(width: 60)
+            .padding(.vertical, 6)
+            .padding(.horizontal, 12)
+            .overlay(
+                Rectangle()
+                    .fill(Color(white: 0.4))
+                    .frame(height: 1),
+                alignment: .bottom
+            )
             
             Spacer()
         }
-        .padding(.vertical, 8)
-        .background(
-            Rectangle()
-                .fill(Color.clear)
-                .overlay(
-                    Rectangle()
-                        .fill(Color(white: 0.4))
-                        .frame(height: 1),
-                    alignment: .bottom
-                )
-        )
     }
     
     // MARK: - Feedback View
@@ -313,50 +338,50 @@ struct MastermindGameView: View {
         let totalFeedback = feedback.exactMatches + feedback.colorMatches
         let columns = 2
         
-        return VStack(spacing: 4) {
+        return VStack(spacing: 3) {
             ForEach(0..<2, id: \.self) { row in
-                HStack(spacing: 4) {
+                HStack(spacing: 3) {
                     ForEach(0..<columns, id: \.self) { col in
                         let index = row * columns + col
                         if index < feedback.exactMatches {
-                            // Filled circle - exact match
-                            Circle()
+                            // Filled square - exact match
+                            RoundedRectangle(cornerRadius: 2)
                                 .fill(Color.white)
-                                .frame(width: 12, height: 12)
+                                .frame(width: 10, height: 10)
                         } else if index < totalFeedback {
-                            // Empty circle - color match
-                            Circle()
-                                .stroke(Color.white, lineWidth: 2)
-                                .frame(width: 12, height: 12)
+                            // Empty square - color match
+                            RoundedRectangle(cornerRadius: 2)
+                                .stroke(Color.white, lineWidth: 1.5)
+                                .frame(width: 10, height: 10)
                         } else if index < gameState.codeLen {
                             // No match
-                            Circle()
+                            RoundedRectangle(cornerRadius: 2)
                                 .fill(Color.clear)
-                                .frame(width: 12, height: 12)
+                                .frame(width: 10, height: 10)
                         }
                     }
                 }
             }
         }
-        .frame(width: 44, height: 44)
+        .frame(width: 32, height: 32)
     }
     
     // MARK: - Color Picker
     private var colorPicker: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 10) {
             // Eraser and color buttons
-            HStack(spacing: 16) {
+            HStack(spacing: 12) {
                 // Eraser button (removes last color)
                 Button(action: {
                     gameState.removeLastColor()
                 }) {
                     ZStack {
-                        RoundedRectangle(cornerRadius: 8)
+                        RoundedRectangle(cornerRadius: 6)
                             .fill(Color(white: 0.2))
-                            .frame(width: 44, height: 44)
-                        Image(systemName: "pencil.slash")
+                            .frame(width: 40, height: 40)
+                        Image(systemName: "arrow.uturn.backward")
                             .foregroundColor(.white)
-                            .font(.system(size: 18))
+                            .font(.system(size: 16))
                     }
                 }
                 
@@ -365,36 +390,15 @@ struct MastermindGameView: View {
                     Button(action: {
                         gameState.addColor(index)
                     }) {
-                        Circle()
+                        RoundedRectangle(cornerRadius: 6)
                             .fill(gameState.getColor(for: index))
-                            .frame(width: 44, height: 44)
+                            .frame(width: 40, height: 40)
                     }
                 }
             }
-            
-            // Current selection preview
-            HStack(spacing: 12) {
-                ForEach(0..<gameState.codeLen, id: \.self) { index in
-                    if let colorIndex = gameState.currentGuess[index] {
-                        Circle()
-                            .fill(gameState.getColor(for: colorIndex))
-                            .frame(width: 36, height: 36)
-                    } else {
-                        Circle()
-                            .stroke(Color(white: 0.4), lineWidth: 2)
-                            .frame(width: 36, height: 36)
-                    }
-                }
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 12)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color(white: 0.4), lineWidth: 2)
-            )
         }
         .padding(.horizontal, 20)
-        .padding(.bottom, 20)
+        .padding(.bottom, 16)
     }
     
     // MARK: - Game Over View
