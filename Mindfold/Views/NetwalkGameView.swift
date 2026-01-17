@@ -149,13 +149,12 @@ struct NetwalkGameView: View {
                     Button(action: {
                         gameState.reset(puzzleMasks: puzzle.puzzleMasks, initialRotations: puzzle.rotations)
                     }) {
-                        Text("Reset")
+                        Image(systemName: "eraser")
+                            .font(.system(size: 28))
                             .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .semibold))
-                            .padding(.horizontal, 24)
-                            .padding(.vertical, 12)
-                            .background(Color.red.opacity(0.7))
-                            .cornerRadius(8)
+                            .frame(width: 60, height: 60)
+                            .background(Color(white: 0.2))
+                            .cornerRadius(12)
                     }
                 }
                 .frame(maxWidth: .infinity)

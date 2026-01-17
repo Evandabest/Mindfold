@@ -187,16 +187,14 @@ struct LITSGameView: View {
                 Button(action: {
                     gameState.reset()
                 }) {
-                    Text("Reset")
+                    Image(systemName: "eraser")
+                        .font(.system(size: 28))
                         .foregroundColor(.white)
-                        .font(.system(size: 16, weight: .medium))
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 12)
-                        .background(Color.red.opacity(0.7))
-                        .cornerRadius(8)
+                        .frame(width: 60, height: 60)
+                        .background(Color(white: 0.2))
+                        .cornerRadius(12)
                 }
-                .padding(.top, 20)
-                .padding(.bottom, 10)
+                .padding(.bottom, 20)
             }
         }
         .padding(.horizontal, 20)
