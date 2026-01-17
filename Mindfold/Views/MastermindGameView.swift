@@ -14,6 +14,7 @@ struct MastermindGameView: View {
     @State private var isLoading = true
     @State private var errorMessage: String?
     @State private var showTutorial = false
+    @State private var showLevelComplete = false
     
     init() {
         // Create a placeholder game state - will be updated when puzzle loads
@@ -63,6 +64,18 @@ struct MastermindGameView: View {
         }
         .sheet(isPresented: $showTutorial) {
             MastermindTutorialView()
+        }
+        .onChange(of: gameState.isWon) { _, isWon in
+            if isWon {
+                showLevelComplete = true
+            }
+        }
+        .alert("Level Complete!", isPresented: $showLevelComplete) {
+            Button("OK") {
+                // Could add navigation or next level here
+            }
+        } message: {
+            Text("Congratulations! You've solved the puzzle.")
         }
     }
     
@@ -122,8 +135,28 @@ struct MastermindGameView: View {
             // Color picker
             if !gameState.isComplete {
                 colorPicker
-            } else {
-                gameOverView
+            } else if !gameState.isWon {
+                // Show game over message for losses
+                VStack(spacing: 16) {
+                    Text("Game Over")
+                        .foregroundColor(.red)
+                        .font(.system(size: 24, weight: .bold))
+                    Text("The secret code is shown above")
+                        .foregroundColor(.gray)
+                    
+                    Button(action: {
+                        Task { await loadPuzzle() }
+                    }) {
+                        Text("New Game")
+                            .foregroundColor(.white)
+                            .font(.system(size: 18, weight: .semibold))
+                            .padding(.horizontal, 32)
+                            .padding(.vertical, 12)
+                            .background(Color.blue)
+                            .cornerRadius(8)
+                    }
+                }
+                .padding(.bottom, 30)
             }
         }
         .padding(.top, 16)
@@ -378,38 +411,6 @@ struct MastermindGameView: View {
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 16)
-    }
-    
-    // MARK: - Game Over View
-    private var gameOverView: some View {
-        VStack(spacing: 16) {
-            if gameState.isWon {
-                Text("🎉 You Won!")
-                    .foregroundColor(.green)
-                    .font(.system(size: 24, weight: .bold))
-                Text("Solved in \(gameState.guesses.count) guesses")
-                    .foregroundColor(.gray)
-            } else {
-                Text("Game Over")
-                    .foregroundColor(.red)
-                    .font(.system(size: 24, weight: .bold))
-                Text("The secret code is shown above")
-                    .foregroundColor(.gray)
-            }
-            
-            Button(action: {
-                Task { await loadPuzzle() }
-            }) {
-                Text("New Game")
-                    .foregroundColor(.white)
-                    .font(.system(size: 18, weight: .semibold))
-                    .padding(.horizontal, 32)
-                    .padding(.vertical, 12)
-                    .background(Color.blue)
-                    .cornerRadius(8)
-            }
-        }
-        .padding(.bottom, 30)
     }
     
     // MARK: - Load Puzzle

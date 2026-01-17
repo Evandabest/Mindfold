@@ -10,7 +10,7 @@ import SwiftUI
 class GameData: ObservableObject {
     // Sample game data
     let games: [Game] = [
-        Game(title: "Shikaku", description: "Fill the grid into rectangles", color: Color(red: 1.0, green: 0.4, blue: 0.6), iconName: "square.grid.3x3"),
+        Game(title: "Shikaku", description: "Fill the grid with rectangles", color: Color(red: 1.0, green: 0.4, blue: 0.6), iconName: "square.grid.3x3"),
         Game(title: "Takuzu", description: "Fill grid with equal black and white cells", color: .green, iconName: "grid"),
         Game(title: "Star Battle", description: "Place stars in each region and row", color: Color(red: 0.7, green: 0.5, blue: 1.0), iconName: "star.fill"),
         Game(title: "Netwalk", description: "Rotate tiles to power the network", color: .cyan, iconName: "pipe.and.arrow"),

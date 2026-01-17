@@ -14,405 +14,334 @@ struct BridgesTutorialView: View {
         ZStack {
             Color.black.ignoresSafeArea()
             
-            ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    // Header
-                    HStack {
-                        Button(action: { dismiss() }) {
-                            Image(systemName: "xmark")
-                                .foregroundColor(.white)
-                                .font(.system(size: 20))
-                        }
-                        Spacer()
+            VStack(spacing: 0) {
+                // Header
+                HStack {
+                    Button(action: { dismiss() }) {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.white)
+                            .font(.system(size: 20, weight: .medium))
                     }
-                    .padding(.horizontal)
-                    .padding(.top, 20)
-                    
-                    // Title
+                    Spacer()
                     Text("How to play")
-                        .font(.system(size: 32, weight: .bold))
                         .foregroundColor(.white)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.bottom, 8)
-                    
-                    // Rule 1: Exact connections
-                    VStack(alignment: .leading, spacing: 12) {
-                        HStack(spacing: 4) {
-                            Text("•")
-                                .foregroundColor(.white)
-                            Text("Each dot must have the exact number of connections represented by a number.")
-                                .foregroundColor(.white)
-                                .font(.system(size: 16))
-                        }
-                        
-                        // Example diagram for connections
-                        HStack(spacing: 40) {
-                            VStack(spacing: 8) {
-                                connectionExample(number: 1, connections: 0)
-                                Text("Not enough")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 14))
-                            }
-                            
-                            VStack(spacing: 8) {
-                                connectionExample(number: 3, connections: 2)
-                                Text("Not enough")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 14))
-                            }
-                            
-                            VStack(spacing: 8) {
-                                connectionExample(number: 2, connections: 1)
-                                Text("Not enough")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 14))
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 8)
-                        
-                        // Correct examples
-                        HStack(spacing: 40) {
-                            VStack(spacing: 8) {
-                                connectionExample(number: 1, connections: 2, incorrect: true)
-                                Text("Too many")
-                                    .foregroundColor(.red)
-                                    .font(.system(size: 14))
-                            }
-                            
-                            VStack(spacing: 8) {
-                                connectionExample(number: 3, connections: 3)
-                                Text("Exact!")
-                                    .foregroundColor(.green)
-                                    .font(.system(size: 14))
-                            }
-                            
-                            VStack(spacing: 8) {
-                                connectionExample(number: 2, connections: 2)
-                                Text("Not enough")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 14))
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 8)
-                        
-                        HStack(spacing: 40) {
-                            VStack(spacing: 8) {
-                                allCorrectExample()
-                                Text("Exact!")
-                                    .foregroundColor(.green)
-                                    .font(.system(size: 14))
-                            }
-                            
-                            VStack(spacing: 8) {
-                                allCorrectExample()
-                                Text("Exact!")
-                                    .foregroundColor(.green)
-                                    .font(.system(size: 14))
-                            }
-                            
-                            VStack(spacing: 8) {
-                                allCorrectExample()
-                                Text("Exact!")
-                                    .foregroundColor(.green)
-                                    .font(.system(size: 14))
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 8)
-                    }
-                    .padding(.horizontal)
-                    
-                    // Rule 2: Single or double connections
-                    VStack(alignment: .leading, spacing: 12) {
-                        HStack(spacing: 4) {
-                            Text("•")
-                                .foregroundColor(.white)
-                            Text("Build single or double connections between dots.")
-                                .foregroundColor(.white)
-                                .font(.system(size: 16))
-                        }
-                        
-                        VStack(spacing: 20) {
-                            HStack(spacing: 20) {
-                                ZStack {
-                                    Circle()
-                                        .fill(Color.white)
-                                        .frame(width: 30, height: 30)
-                                    Text("8")
-                                        .foregroundColor(.black)
-                                        .font(.system(size: 14, weight: .bold))
-                                }
-                                
-                                Rectangle()
-                                    .fill(Color.white)
-                                    .frame(width: 60, height: 3)
-                                
-                                ZStack {
-                                    Circle()
-                                        .fill(Color.white)
-                                        .frame(width: 30, height: 30)
-                                    Text("8")
-                                        .foregroundColor(.black)
-                                        .font(.system(size: 14, weight: .bold))
-                                }
-                            }
-                            Text("Possible")
-                                .foregroundColor(.white)
-                                .font(.system(size: 14))
-                            
-                            HStack(spacing: 20) {
-                                ZStack {
-                                    Circle()
-                                        .fill(Color.white)
-                                        .frame(width: 30, height: 30)
-                                    Text("8")
-                                        .foregroundColor(.black)
-                                        .font(.system(size: 14, weight: .bold))
-                                }
-                                
-                                ZStack {
-                                    Rectangle()
-                                        .fill(Color.white)
-                                        .frame(width: 60, height: 3)
-                                        .offset(y: -4)
-                                    Rectangle()
-                                        .fill(Color.white)
-                                        .frame(width: 60, height: 3)
-                                        .offset(y: 4)
-                                }
-                                
-                                ZStack {
-                                    Circle()
-                                        .fill(Color.white)
-                                        .frame(width: 30, height: 30)
-                                    Text("8")
-                                        .foregroundColor(.black)
-                                        .font(.system(size: 14, weight: .bold))
-                                }
-                            }
-                            Text("Possible")
-                                .foregroundColor(.white)
-                                .font(.system(size: 14))
-                            
-                            HStack(spacing: 20) {
-                                ZStack {
-                                    Circle()
-                                        .fill(Color.white)
-                                        .frame(width: 30, height: 30)
-                                    Text("8")
-                                        .foregroundColor(.black)
-                                        .font(.system(size: 14, weight: .bold))
-                                }
-                                
-                                ZStack {
-                                    Rectangle()
-                                        .fill(Color.white)
-                                        .frame(width: 60, height: 3)
-                                        .offset(y: -6)
-                                    Rectangle()
-                                        .fill(Color.white)
-                                        .frame(width: 60, height: 3)
-                                    Rectangle()
-                                        .fill(Color.white)
-                                        .frame(width: 60, height: 3)
-                                        .offset(y: 6)
-                                }
-                                
-                                ZStack {
-                                    Circle()
-                                        .fill(Color.white)
-                                        .frame(width: 30, height: 30)
-                                    Text("8")
-                                        .foregroundColor(.black)
-                                        .font(.system(size: 14, weight: .bold))
-                                }
-                            }
-                            Text("Impossible")
-                                .foregroundColor(.red)
-                                .font(.system(size: 14))
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 8)
-                    }
-                    .padding(.horizontal)
-                    
-                    // Rule 3: No crossing
-                    VStack(alignment: .leading, spacing: 12) {
-                        HStack(spacing: 4) {
-                            Text("•")
-                                .foregroundColor(.white)
-                            Text("Crossing connections are not allowed.")
-                                .foregroundColor(.white)
-                                .font(.system(size: 16))
-                        }
-                        
-                        HStack(spacing: 40) {
-                            VStack(spacing: 8) {
-                                crossingExample(crossing: true)
-                                Text("Impossible")
-                                    .foregroundColor(.red)
-                                    .font(.system(size: 14))
-                            }
-                            
-                            VStack(spacing: 8) {
-                                crossingExample(crossing: false)
-                                Text("Correct")
-                                    .foregroundColor(.green)
-                                    .font(.system(size: 14))
-                            }
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 8)
-                    }
-                    .padding(.horizontal)
-                    
-                    Spacer(minLength: 30)
+                        .font(.system(size: 22, weight: .bold))
+                    Spacer()
+                    Image(systemName: "xmark")
+                        .foregroundColor(.clear)
+                        .font(.system(size: 20, weight: .medium))
                 }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
+                
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 32) {
+                        // Game description
+                        Text("Connect islands with bridges")
+                            .foregroundColor(.gray)
+                            .font(.system(size: 16))
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        
+                        // Rule 1: Number meaning
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Rule 1: Island Numbers")
+                                .foregroundColor(.white)
+                                .font(.system(size: 18, weight: .semibold))
+                            Text("Each number tells you how many bridges must connect to that island.")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 15))
+                            
+                            bridgeIsland(number: "3", bridges: 3)
+                                .frame(maxWidth: .infinity)
+                        }
+                        
+                        // Rule 2: Bridge rules
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Rule 2: Bridge Rules")
+                                .foregroundColor(.white)
+                                .font(.system(size: 18, weight: .semibold))
+                            Text("Bridges can only go horizontally or vertically")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 15))
+                            
+                            HStack(spacing: 30) {
+                                VStack(spacing: 8) {
+                                    bridgeRuleExample1(valid: true)
+                                    Text("✓ Horizontal/vertical")
+                                        .foregroundColor(.green)
+                                        .font(.system(size: 13))
+                                }
+                                
+                                VStack(spacing: 8) {
+                                    bridgeRuleExample1(valid: false)
+                                    Text("✗ No diagonals")
+                                        .foregroundColor(.red)
+                                        .font(.system(size: 13))
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                            
+                            Text("Maximum 2 bridges between any two islands")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 15))
+                                .padding(.top, 8)
+                            
+                            HStack(spacing: 30) {
+                                VStack(spacing: 8) {
+                                    bridgeRuleExample2(bridges: 2)
+                                    Text("✓ Two bridges OK")
+                                        .foregroundColor(.green)
+                                        .font(.system(size: 13))
+                                }
+                                
+                                VStack(spacing: 8) {
+                                    bridgeRuleExample2(bridges: 3)
+                                    Text("✗ Three is too many")
+                                        .foregroundColor(.red)
+                                        .font(.system(size: 13))
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                            
+                            Text("Bridges cannot cross each other")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 15))
+                                .padding(.top, 8)
+                            
+                            HStack(spacing: 30) {
+                                VStack(spacing: 8) {
+                                    bridgeRuleExample3(crossing: false)
+                                    Text("✓ No crossing")
+                                        .foregroundColor(.green)
+                                        .font(.system(size: 13))
+                                }
+                                
+                                VStack(spacing: 8) {
+                                    bridgeRuleExample3(crossing: true)
+                                    Text("✗ Bridges cross")
+                                        .foregroundColor(.red)
+                                        .font(.system(size: 13))
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                        
+                        // Rule 3: Connected graph
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Rule 3: All Connected")
+                                .foregroundColor(.white)
+                                .font(.system(size: 18, weight: .semibold))
+                            Text("All islands must be connected into one network.")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 15))
+                        }
+                        
+                        // Example
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Example")
+                                .foregroundColor(.white)
+                                .font(.system(size: 18, weight: .semibold))
+                            
+                            bridgeExample()
+                                .frame(maxWidth: .infinity)
+                        }
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 100)
+                }
+                
+                Button(action: { dismiss() }) {
+                    Text("Got it!")
+                        .foregroundColor(.black)
+                        .font(.system(size: 18, weight: .semibold))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(Color.white)
+                        .cornerRadius(12)
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
             }
+        }
+        .toolbar(.hidden, for: .navigationBar)
+    }
+    
+    private func bridgeIsland(number: String, bridges: Int) -> some View {
+        ZStack {
+            // Lines representing bridges
+            ForEach(0..<bridges, id: \.self) { i in
+                let angle = Double(i) * (360.0 / Double(bridges))
+                Rectangle()
+                    .fill(Color.white)
+                    .frame(width: 40, height: 3)
+                    .rotationEffect(.degrees(angle))
+            }
+            
+            // Island
+            Circle()
+                .fill(Color(white: 0.3))
+                .frame(width: 40, height: 40)
+            Circle()
+                .stroke(Color.white, lineWidth: 2)
+                .frame(width: 40, height: 40)
+            Text(number)
+                .foregroundColor(.white)
+                .font(.system(size: 18, weight: .bold))
         }
     }
     
-    // Helper views for examples
-    @ViewBuilder
-    private func connectionExample(number: Int, connections: Int, incorrect: Bool = false) -> some View {
+    private func bridgeExample() -> some View {
         ZStack {
-            // Grid background
-            Rectangle()
-                .fill(Color(white: 0.1))
-                .frame(width: 80, height: 40)
-            
-            // Node
-            ZStack {
-                Circle()
-                    .fill(incorrect ? Color.red.opacity(0.7) : Color.white)
-                    .frame(width: 30, height: 30)
-                Text("\(number)")
-                    .foregroundColor(incorrect ? .white : .black)
-                    .font(.system(size: 14, weight: .bold))
+            // Bridges (lines)
+            Path { path in
+                path.move(to: CGPoint(x: 60, y: 60))
+                path.addLine(to: CGPoint(x: 140, y: 60))
             }
+            .stroke(Color.white, lineWidth: 3)
             
-            // Connections (simple representation)
-            if connections > 0 {
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(width: 25, height: 3)
-                    .offset(x: -27)
+            Path { path in
+                path.move(to: CGPoint(x: 140, y: 60))
+                path.addLine(to: CGPoint(x: 140, y: 140))
             }
+            .stroke(Color.white, lineWidth: 3)
+            
+            // Islands
+            island(x: 60, y: 60, number: "1")
+            island(x: 140, y: 60, number: "2")
+            island(x: 140, y: 140, number: "1")
         }
+        .frame(width: 200, height: 200)
     }
     
-    @ViewBuilder
-    private func allCorrectExample() -> some View {
+    private func island(x: CGFloat, y: CGFloat, number: String) -> some View {
         ZStack {
-            Rectangle()
-                .fill(Color(white: 0.1))
-                .frame(width: 80, height: 40)
-            
-            HStack(spacing: 20) {
-                ZStack {
-                    Circle()
-                        .fill(Color.white)
-                        .frame(width: 20, height: 20)
-                    Text("1")
-                        .foregroundColor(.black)
-                        .font(.system(size: 10, weight: .bold))
-                }
-                
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(width: 20, height: 2)
-                
-                ZStack {
-                    Circle()
-                        .fill(Color.white)
-                        .frame(width: 20, height: 20)
-                    Text("3")
-                        .foregroundColor(.black)
-                        .font(.system(size: 10, weight: .bold))
-                }
-                
-                ZStack {
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 20, height: 2)
-                        .offset(y: -2)
-                    Rectangle()
-                        .fill(Color.white)
-                        .frame(width: 20, height: 2)
-                        .offset(y: 2)
-                }
-                
-                ZStack {
-                    Circle()
-                        .fill(Color.white)
-                        .frame(width: 20, height: 20)
-                    Text("2")
-                        .foregroundColor(.black)
-                        .font(.system(size: 10, weight: .bold))
-                }
-            }
+            Circle()
+                .fill(Color(white: 0.3))
+                .frame(width: 35, height: 35)
+            Circle()
+                .stroke(Color.white, lineWidth: 2)
+                .frame(width: 35, height: 35)
+            Text(number)
+                .foregroundColor(.white)
+                .font(.system(size: 16, weight: .bold))
         }
+        .position(x: x, y: y)
     }
     
-    @ViewBuilder
-    private func crossingExample(crossing: Bool) -> some View {
+    // Rule 2 examples
+    private func bridgeRuleExample1(valid: Bool) -> some View {
         ZStack {
-            Rectangle()
-                .fill(Color(white: 0.1))
-                .frame(width: 120, height: 120)
-            
-            if crossing {
-                // Incorrect: crossing connections
-                VStack(spacing: 40) {
-                    HStack(spacing: 40) {
-                        Circle().fill(Color.white).frame(width: 20, height: 20)
-                        Circle().fill(Color.white).frame(width: 20, height: 20)
-                    }
-                    HStack(spacing: 40) {
-                        Circle().fill(Color.white).frame(width: 20, height: 20)
-                        Circle().fill(Color.white).frame(width: 20, height: 20)
-                    }
+            if valid {
+                // Horizontal bridge
+                Path { path in
+                    path.move(to: CGPoint(x: 30, y: 50))
+                    path.addLine(to: CGPoint(x: 70, y: 50))
                 }
+                .stroke(Color.white, lineWidth: 2)
                 
-                // Horizontal line
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(width: 40, height: 2)
-                    .offset(y: -20)
-                
-                // Vertical line (crossing)
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(width: 2, height: 40)
-                    .offset(x: -20)
+                miniIsland(x: 30, y: 50, number: "1")
+                miniIsland(x: 70, y: 50, number: "1")
             } else {
-                // Correct: no crossing
-                VStack(spacing: 40) {
-                    HStack(spacing: 40) {
-                        Circle().fill(Color.white).frame(width: 20, height: 20)
-                        Circle().fill(Color.white).frame(width: 20, height: 20)
-                    }
-                    HStack(spacing: 40) {
-                        Circle().fill(Color.white).frame(width: 20, height: 20)
-                        Circle().fill(Color.white).frame(width: 20, height: 20)
-                    }
+                // Diagonal bridge (invalid)
+                Path { path in
+                    path.move(to: CGPoint(x: 30, y: 30))
+                    path.addLine(to: CGPoint(x: 70, y: 70))
                 }
+                .stroke(Color.red, lineWidth: 2)
                 
-                // Top horizontal line
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(width: 40, height: 2)
-                    .offset(y: -20)
-                
-                // Right vertical line (not crossing)
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(width: 2, height: 40)
-                    .offset(x: 20)
+                miniIsland(x: 30, y: 30, number: "1")
+                miniIsland(x: 70, y: 70, number: "1")
             }
         }
+        .frame(width: 100, height: 100)
+    }
+    
+    private func bridgeRuleExample2(bridges: Int) -> some View {
+        ZStack {
+            // Draw bridges
+            if bridges >= 1 {
+                Path { path in
+                    path.move(to: CGPoint(x: 30, y: 48))
+                    path.addLine(to: CGPoint(x: 70, y: 48))
+                }
+                .stroke(bridges > 2 ? Color.red : Color.white, lineWidth: 2)
+            }
+            if bridges >= 2 {
+                Path { path in
+                    path.move(to: CGPoint(x: 30, y: 52))
+                    path.addLine(to: CGPoint(x: 70, y: 52))
+                }
+                .stroke(bridges > 2 ? Color.red : Color.white, lineWidth: 2)
+            }
+            if bridges >= 3 {
+                Path { path in
+                    path.move(to: CGPoint(x: 30, y: 56))
+                    path.addLine(to: CGPoint(x: 70, y: 56))
+                }
+                .stroke(Color.red, lineWidth: 2)
+            }
+            
+            miniIsland(x: 30, y: 50, number: "\(bridges)")
+            miniIsland(x: 70, y: 50, number: "\(bridges)")
+        }
+        .frame(width: 100, height: 100)
+    }
+    
+    private func bridgeRuleExample3(crossing: Bool) -> some View {
+        ZStack {
+            if crossing {
+                // Crossing bridges (invalid)
+                Path { path in
+                    path.move(to: CGPoint(x: 30, y: 50))
+                    path.addLine(to: CGPoint(x: 70, y: 50))
+                }
+                .stroke(Color.red, lineWidth: 2)
+                
+                Path { path in
+                    path.move(to: CGPoint(x: 50, y: 30))
+                    path.addLine(to: CGPoint(x: 50, y: 70))
+                }
+                .stroke(Color.red, lineWidth: 2)
+                
+                miniIsland(x: 30, y: 50, number: "1")
+                miniIsland(x: 70, y: 50, number: "1")
+                miniIsland(x: 50, y: 30, number: "1")
+                miniIsland(x: 50, y: 70, number: "1")
+            } else {
+                // Non-crossing bridges (valid)
+                Path { path in
+                    path.move(to: CGPoint(x: 30, y: 35))
+                    path.addLine(to: CGPoint(x: 70, y: 35))
+                }
+                .stroke(Color.white, lineWidth: 2)
+                
+                Path { path in
+                    path.move(to: CGPoint(x: 50, y: 55))
+                    path.addLine(to: CGPoint(x: 50, y: 80))
+                }
+                .stroke(Color.white, lineWidth: 2)
+                
+                miniIsland(x: 30, y: 35, number: "1")
+                miniIsland(x: 70, y: 35, number: "1")
+                miniIsland(x: 50, y: 55, number: "1")
+                miniIsland(x: 50, y: 80, number: "1")
+            }
+        }
+        .frame(width: 100, height: 100)
+    }
+    
+    private func miniIsland(x: CGFloat, y: CGFloat, number: String) -> some View {
+        ZStack {
+            Circle()
+                .fill(Color(white: 0.3))
+                .frame(width: 20, height: 20)
+            Circle()
+                .stroke(Color.white, lineWidth: 1.5)
+                .frame(width: 20, height: 20)
+            Text(number)
+                .foregroundColor(.white)
+                .font(.system(size: 10, weight: .bold))
+        }
+        .position(x: x, y: y)
     }
 }
-

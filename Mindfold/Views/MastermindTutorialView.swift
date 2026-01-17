@@ -12,7 +12,6 @@ struct MastermindTutorialView: View {
     
     var body: some View {
         ZStack {
-            // Dark background
             Color.black.ignoresSafeArea()
             
             VStack(spacing: 0) {
@@ -23,16 +22,11 @@ struct MastermindTutorialView: View {
                             .foregroundColor(.white)
                             .font(.system(size: 20, weight: .medium))
                     }
-                    
                     Spacer()
-                    
-                    Text("How to play Mastermind")
+                    Text("How to play")
                         .foregroundColor(.white)
-                        .font(.system(size: 24, weight: .bold))
-                    
+                        .font(.system(size: 22, weight: .bold))
                     Spacer()
-                    
-                    // Invisible spacer for balance
                     Image(systemName: "xmark")
                         .foregroundColor(.clear)
                         .font(.system(size: 20, weight: .medium))
@@ -41,123 +35,137 @@ struct MastermindTutorialView: View {
                 .padding(.vertical, 16)
                 
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 24) {
-                        // Rules
-                        VStack(alignment: .leading, spacing: 16) {
-                            bulletPoint("Find a secret 4-color sequence.")
-                            bulletPoint("Secret colors can repeat.")
-                            bulletPoint("Each guess - place 4 balls and receive feedback:")
+                    VStack(alignment: .leading, spacing: 32) {
+                        // Game description
+                        Text("Crack the secret color code")
+                            .foregroundColor(.gray)
+                            .font(.system(size: 16))
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        
+                        // Rule 1: Making guesses
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Rule 1: Making Guesses")
+                                .foregroundColor(.white)
+                                .font(.system(size: 18, weight: .semibold))
+                            Text("Select colors to make a guess about the secret code.")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 15))
                             
-                            // Feedback explanation
-                            VStack(alignment: .leading, spacing: 12) {
-                                HStack(spacing: 12) {
-                                    Circle()
-                                        .fill(Color.white)
-                                        .frame(width: 20, height: 20)
-                                    Text("correct color and position.")
-                                        .foregroundColor(.white)
-                                }
-                                
-                                HStack(spacing: 12) {
-                                    Circle()
-                                        .stroke(Color.white, lineWidth: 2)
-                                        .frame(width: 20, height: 20)
-                                    Text("correct color, wrong position.")
-                                        .foregroundColor(.white)
-                                }
+                            guessExample()
+                                .frame(maxWidth: .infinity)
+                        }
+                        
+                        // Rule 2: White feedback
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Rule 2: White Dot - Correct Color & Position")
+                                .foregroundColor(.white)
+                                .font(.system(size: 18, weight: .semibold))
+                            Text("A white dot means one color is correct and in the right spot.")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 15))
+                            
+                            VStack(spacing: 12) {
+                                feedbackExample(
+                                    guess: [.red, .blue, .green, .yellow],
+                                    secret: [.red, .yellow, .orange, .purple],
+                                    whiteDots: 1,
+                                    blackDots: 1
+                                )
+                                Text("Secret has Red in position 1, Yellow somewhere else")
+                                    .foregroundColor(.gray)
+                                    .font(.system(size: 13))
+                                    .frame(maxWidth: .infinity, alignment: .center)
                             }
-                            .padding(.leading, 24)
-                            
-                            bulletPoint("Feedback dots don't show which specific balls they refer to.")
-                            
-                            // Example
-                            exampleView
-                            
-                            bulletPoint("Use deduction and logic to find the correct sequence!")
+                        }
+                        
+                        // Rule 3: Black feedback
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Rule 3: Black Dot - Correct Color, Wrong Position")
+                                .foregroundColor(.white)
+                                .font(.system(size: 18, weight: .semibold))
+                            Text("A black dot means one color is correct but in the wrong spot.")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 15))
+                        }
+                        
+                        // Rule 4: Deduce the code
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Rule 4: Strategy")
+                                .foregroundColor(.white)
+                                .font(.system(size: 18, weight: .semibold))
+                            Text("Use the feedback from each guess to narrow down the possibilities. You have limited attempts!")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 15))
                         }
                     }
                     .padding(.horizontal, 20)
-                    .padding(.top, 16)
+                    .padding(.bottom, 100)
                 }
                 
-                Spacer()
-                
-                // Play tutorial button
                 Button(action: { dismiss() }) {
-                    HStack {
-                        Text("Play tutorial")
-                            .foregroundColor(.black)
-                            .font(.system(size: 18, weight: .semibold))
-                        Image(systemName: "play.fill")
-                            .foregroundColor(.black)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-                    .background(Color.white)
-                    .cornerRadius(12)
+                    Text("Got it!")
+                        .foregroundColor(.black)
+                        .font(.system(size: 18, weight: .semibold))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(Color.white)
+                        .cornerRadius(12)
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 30)
+                .padding(.bottom, 20)
+            }
+        }
+        .toolbar(.hidden, for: .navigationBar)
+    }
+    
+    private func guessExample() -> some View {
+        HStack(spacing: 8) {
+            ForEach([Color.red, .blue, .green, .yellow], id: \.self) { color in
+                RoundedRectangle(cornerRadius: 6)
+                    .fill(color)
+                    .frame(width: 40, height: 40)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(Color.white.opacity(0.3), lineWidth: 2)
+                    )
             }
         }
     }
     
-    private func bulletPoint(_ text: String) -> some View {
-        HStack(alignment: .top, spacing: 8) {
-            Text("•")
-                .foregroundColor(.white)
-                .font(.system(size: 16))
-            Text(text)
-                .foregroundColor(.white)
-                .font(.system(size: 16))
-        }
-    }
-    
-    private var exampleView: some View {
-        VStack(spacing: 12) {
-            HStack(spacing: 16) {
-                // Example balls
-                HStack(spacing: 8) {
-                    ForEach(0..<4, id: \.self) { index in
-                        Circle()
-                            .fill(Color(white: 0.4))
-                            .frame(width: 36, height: 36)
-                    }
-                }
-                
-                // Feedback example (2 exact, 2 color)
-                VStack(spacing: 3) {
-                    HStack(spacing: 3) {
-                        Circle()
-                            .fill(Color.white)
-                            .frame(width: 10, height: 10)
-                        Circle()
-                            .fill(Color.white)
-                            .frame(width: 10, height: 10)
-                    }
-                    HStack(spacing: 3) {
-                        Circle()
-                            .stroke(Color.white, lineWidth: 1.5)
-                            .frame(width: 10, height: 10)
-                        Circle()
-                            .stroke(Color.white, lineWidth: 1.5)
-                            .frame(width: 10, height: 10)
-                    }
+    private func feedbackExample(guess: [Color], secret: [Color], whiteDots: Int, blackDots: Int) -> some View {
+        HStack(spacing: 12) {
+            // Guess
+            HStack(spacing: 8) {
+                ForEach(0..<guess.count, id: \.self) { i in
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(guess[i])
+                        .frame(width: 35, height: 35)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 6)
+                                .stroke(Color.white.opacity(0.3), lineWidth: 2)
+                        )
                 }
             }
             
-            Text("Two balls are in the correct positions, and two have the correct color but wrong positions.")
-                .foregroundColor(.white)
-                .font(.system(size: 14))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 20)
+            // Feedback (white dots first for correct position, then black dots for correct color wrong position)
+            VStack(spacing: 4) {
+                HStack(spacing: 4) {
+                    ForEach(0..<2, id: \.self) { i in
+                        Circle()
+                            .fill(i < whiteDots ? Color.white : (i < whiteDots + blackDots ? Color.black : Color.gray.opacity(0.3)))
+                            .frame(width: 12, height: 12)
+                            .overlay(Circle().stroke(Color.white.opacity(0.5), lineWidth: 1))
+                    }
+                }
+                HStack(spacing: 4) {
+                    ForEach(2..<4, id: \.self) { i in
+                        Circle()
+                            .fill(i < whiteDots ? Color.white : (i < whiteDots + blackDots ? Color.black : Color.gray.opacity(0.3)))
+                            .frame(width: 12, height: 12)
+                            .overlay(Circle().stroke(Color.white.opacity(0.5), lineWidth: 1))
+                    }
+                }
+            }
         }
-        .padding(.vertical, 16)
-        .padding(.leading, 24)
     }
 }
-
-#Preview {
-    MastermindTutorialView()
-}
-
