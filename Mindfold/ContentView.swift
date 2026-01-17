@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedDifficulty: String = "Standard"
     @StateObject private var gameData = GameData()
     @State private var showSettings = false
     
@@ -23,19 +22,6 @@ struct ContentView: View {
                     HeaderView(onSettingsTap: {
                         showSettings = true
                     })
-                    
-                    // Difficulty selector
-                    HStack(spacing: 0) {
-                        DifficultyButton(title: "Standard", isSelected: selectedDifficulty == "Standard") {
-                            selectedDifficulty = "Standard"
-                        }
-                        
-                        DifficultyButton(title: "Hard", isSelected: selectedDifficulty == "Hard") {
-                            selectedDifficulty = "Hard"
-                        }
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 20)
                     
                     // Game list
                     ScrollView {
