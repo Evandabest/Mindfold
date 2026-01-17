@@ -11,63 +11,72 @@ struct NetwalkIcon: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.white)
+                .fill(Color(white: 0.25))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.black, lineWidth: 2)
+                )
             
             GeometryReader { geo in
-                let pipeWidth: CGFloat = 7
-                let padding: CGFloat = 12
-                let w = geo.size.width - (padding * 2)
-                let h = geo.size.height - (padding * 2)
+                let cellSize = geo.size.width / 3
+                let pipeWidth = cellSize * 0.25
                 
-                // Draw pipe segments as rounded rectangles
-                // Top horizontal segment
-                RoundedRectangle(cornerRadius: pipeWidth / 2)
-                    .fill(Color.cyan)
-                    .frame(width: w * 0.5, height: pipeWidth)
-                    .position(x: padding + w * 0.25, y: padding + h * 0.25)
+                // Draw grid lines
+                Path { path in
+                    // Vertical lines
+                    for i in 1...2 {
+                        let x = CGFloat(i) * cellSize
+                        path.move(to: CGPoint(x: x, y: 0))
+                        path.addLine(to: CGPoint(x: x, y: geo.size.height))
+                    }
+                    // Horizontal lines
+                    for i in 1...2 {
+                        let y = CGFloat(i) * cellSize
+                        path.move(to: CGPoint(x: 0, y: y))
+                        path.addLine(to: CGPoint(x: geo.size.width, y: y))
+                    }
+                }
+                .stroke(Color.black, lineWidth: 1.5)
                 
-                // Left vertical segment
-                RoundedRectangle(cornerRadius: pipeWidth / 2)
-                    .fill(Color.cyan)
-                    .frame(width: pipeWidth, height: h * 0.4)
-                    .position(x: padding + w * 0.2, y: padding + h * 0.5)
+                // White pipe paths with dashed lines
+                // Vertical pipe in left column (rows 0-1)
+                ZStack {
+                    RoundedRectangle(cornerRadius: pipeWidth / 2)
+                        .fill(Color.white)
+                        .frame(width: pipeWidth, height: cellSize * 2)
+                    Path { path in
+                        path.move(to: CGPoint(x: 0, y: -cellSize))
+                        path.addLine(to: CGPoint(x: 0, y: cellSize))
+                    }
+                    .stroke(Color.black, style: StrokeStyle(lineWidth: 2, dash: [4, 3]))
+                }
+                .position(x: cellSize * 0.5, y: cellSize)
                 
-                // Bottom horizontal segment
-                RoundedRectangle(cornerRadius: pipeWidth / 2)
-                    .fill(Color.cyan)
-                    .frame(width: w * 0.45, height: pipeWidth)
-                    .position(x: padding + w * 0.6, y: padding + h * 0.7)
+                // Vertical pipe in middle column (rows 1-2)
+                ZStack {
+                    RoundedRectangle(cornerRadius: pipeWidth / 2)
+                        .fill(Color.white)
+                        .frame(width: pipeWidth, height: cellSize * 2)
+                    Path { path in
+                        path.move(to: CGPoint(x: 0, y: -cellSize))
+                        path.addLine(to: CGPoint(x: 0, y: cellSize))
+                    }
+                    .stroke(Color.black, style: StrokeStyle(lineWidth: 2, dash: [4, 3]))
+                }
+                .position(x: cellSize * 1.5, y: cellSize * 2)
                 
-                // Right vertical segment
-                RoundedRectangle(cornerRadius: pipeWidth / 2)
-                    .fill(Color.cyan)
-                    .frame(width: pipeWidth, height: h * 0.35)
-                    .position(x: padding + w * 0.75, y: padding + h * 0.4)
-                
-                // Curved connections using circles
-                // Top-left corner connector
-                Circle()
-                    .fill(Color.cyan)
-                    .frame(width: pipeWidth * 1.5, height: pipeWidth * 1.5)
-                    .position(x: padding + w * 0.2, y: padding + h * 0.25)
-                
-                // Bottom-left corner connector
-                Circle()
-                    .fill(Color.cyan)
-                    .frame(width: pipeWidth * 1.5, height: pipeWidth * 1.5)
-                    .position(x: padding + w * 0.2, y: padding + h * 0.7)
-                
-                // Bottom-right corner connector
-                Circle()
-                    .fill(Color.cyan)
-                    .frame(width: pipeWidth * 1.5, height: pipeWidth * 1.5)
-                    .position(x: padding + w * 0.75, y: padding + h * 0.7)
-                
-                // Top-right corner connector
-                Circle()
-                    .fill(Color.cyan)
-                    .frame(width: pipeWidth * 1.5, height: pipeWidth * 1.5)
-                    .position(x: padding + w * 0.75, y: padding + h * 0.25)
+                // Horizontal pipe at bottom (cols 1-2)
+                ZStack {
+                    RoundedRectangle(cornerRadius: pipeWidth / 2)
+                        .fill(Color.white)
+                        .frame(width: cellSize * 2, height: pipeWidth)
+                    Path { path in
+                        path.move(to: CGPoint(x: -cellSize, y: 0))
+                        path.addLine(to: CGPoint(x: cellSize, y: 0))
+                    }
+                    .stroke(Color.black, style: StrokeStyle(lineWidth: 2, dash: [4, 3]))
+                }
+                .position(x: cellSize * 2, y: cellSize * 2.5)
             }
         }
     }

@@ -16,40 +16,44 @@ struct StarBattleIcon: View {
             GeometryReader { geo in
                 VStack(spacing: 0) {
                     HStack(spacing: 0) {
-                        // Top left - orange with black dot
+                        // Top left - Green (empty)
                         ZStack {
                             Rectangle()
-                                .fill(Color.orange)
-                            Circle()
-                                .fill(Color.black)
-                                .frame(width: geo.size.width * 0.25, height: geo.size.width * 0.25)
+                                .fill(Color(red: 0.5, green: 0.85, blue: 0.5))
+                            Rectangle()
+                                .stroke(Color.black, lineWidth: 2)
                         }
                         .frame(width: geo.size.width * 0.5, height: geo.size.height * 0.5)
                         
-                        // Top right - light purple with white star
+                        // Top right - Blue with yellow star
                         ZStack {
                             Rectangle()
-                                .fill(Color(red: 0.7, green: 0.5, blue: 1.0))
+                                .fill(Color(red: 0.35, green: 0.5, blue: 0.75))
+                            Rectangle()
+                                .stroke(Color.black, lineWidth: 2)
                             Image(systemName: "star.fill")
-                                .foregroundColor(.white)
-                                .font(.system(size: min(geo.size.width, geo.size.height) * 0.25))
+                                .foregroundColor(Color(red: 1.0, green: 0.85, blue: 0.3))
+                                .font(.system(size: min(geo.size.width, geo.size.height) * 0.3))
                         }
                         .frame(width: geo.size.width * 0.5, height: geo.size.height * 0.5)
                     }
                     
                     HStack(spacing: 0) {
-                        // Bottom left - orange and empty
-                        Rectangle()
-                            .fill(Color.orange)
-                            .frame(width: geo.size.width * 0.5, height: geo.size.height * 0.5)
-                        
-                        // Bottom right - orange with black dot
+                        // Bottom left - Red (empty)
                         ZStack {
                             Rectangle()
-                                .fill(Color.orange)
-                            Circle()
-                                .fill(Color.black)
-                                .frame(width: geo.size.width * 0.25, height: geo.size.width * 0.25)
+                                .fill(Color(red: 0.85, green: 0.4, blue: 0.4))
+                            Rectangle()
+                                .stroke(Color.black, lineWidth: 2)
+                        }
+                        .frame(width: geo.size.width * 0.5, height: geo.size.height * 0.5)
+                        
+                        // Bottom right - Purple (empty)
+                        ZStack {
+                            Rectangle()
+                                .fill(Color(red: 0.6, green: 0.5, blue: 0.85))
+                            Rectangle()
+                                .stroke(Color.black, lineWidth: 2)
                         }
                         .frame(width: geo.size.width * 0.5, height: geo.size.height * 0.5)
                     }

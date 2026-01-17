@@ -14,39 +14,55 @@ struct TakuzuIcon: View {
                 .fill(Color(white: 0.2))
             
             GeometryReader { geo in
-                VStack(spacing: 2) {
-                    HStack(spacing: 2) {
-                        // Dark gray with black circle
+                VStack(spacing: 0) {
+                    HStack(spacing: 0) {
+                        // Top left: Gray with filled black circle
                         ZStack {
                             Rectangle()
-                                .fill(Color(white: 0.3))
+                                .fill(Color(white: 0.6))
+                            Rectangle()
+                                .stroke(Color.black, lineWidth: 2)
                             Circle()
                                 .fill(Color.black)
-                                .frame(width: geo.size.width * 0.25, height: geo.size.width * 0.25)
-                        }
-                        
-                        // White
-                        Rectangle()
-                            .fill(Color.white)
-                    }
-                    
-                    HStack(spacing: 2) {
-                        // White
-                        Rectangle()
-                            .fill(Color.white)
-                        
-                        // Light green with dark green square outline
-                        ZStack {
-                            Rectangle()
-                                .fill(Color.green.opacity(0.5))
-                            RoundedRectangle(cornerRadius: 4)
-                                .stroke(Color.green, lineWidth: 2)
                                 .frame(width: geo.size.width * 0.3, height: geo.size.width * 0.3)
                         }
+                        .frame(width: geo.size.width * 0.5, height: geo.size.height * 0.5)
+                        
+                        // Top right: White/empty
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.white)
+                            Rectangle()
+                                .stroke(Color.black, lineWidth: 2)
+                        }
+                        .frame(width: geo.size.width * 0.5, height: geo.size.height * 0.5)
+                    }
+                    
+                    HStack(spacing: 0) {
+                        // Bottom left: White/empty
+                        ZStack {
+                            Rectangle()
+                                .fill(Color.white)
+                            Rectangle()
+                                .stroke(Color.black, lineWidth: 2)
+                        }
+                        .frame(width: geo.size.width * 0.5, height: geo.size.height * 0.5)
+                        
+                        // Bottom right: Gray with white circle outline
+                        ZStack {
+                            Rectangle()
+                                .fill(Color(white: 0.6))
+                            Rectangle()
+                                .stroke(Color.black, lineWidth: 2)
+                            Circle()
+                                .stroke(Color.black, lineWidth: 2)
+                                .background(Circle().fill(Color.white))
+                                .frame(width: geo.size.width * 0.3, height: geo.size.width * 0.3)
+                        }
+                        .frame(width: geo.size.width * 0.5, height: geo.size.height * 0.5)
                     }
                 }
             }
-            .padding(4)
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
     }

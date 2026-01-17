@@ -16,34 +16,40 @@ struct ShikakuIcon: View {
             GeometryReader { geo in
                 VStack(spacing: 0) {
                     HStack(spacing: 0) {
-                        // Top left - red with 2
+                        // Top left - red with 5
                         ZStack {
                             Rectangle()
-                                .fill(Color.red)
-                            Text("2")
-                                .foregroundColor(.white)
-                                .font(.system(size: 16, weight: .bold))
+                                .fill(Color(red: 0.85, green: 0.35, blue: 0.35))
+                            Rectangle()
+                                .stroke(Color.black, lineWidth: 2)
+                            Text("5")
+                                .foregroundColor(.black)
+                                .font(.system(size: 20, weight: .bold))
                         }
                         .frame(width: geo.size.width * 0.5, height: geo.size.height * 0.5)
                         
-                        // Top right - orange with 4
+                        // Top right - blue with 6
                         ZStack {
                             Rectangle()
-                                .fill(Color.orange)
-                            Text("4")
-                                .foregroundColor(.white)
-                                .font(.system(size: 16, weight: .bold))
+                                .fill(Color(red: 0.35, green: 0.55, blue: 0.75))
+                            Rectangle()
+                                .stroke(Color.black, lineWidth: 2)
+                            Text("6")
+                                .foregroundColor(.black)
+                                .font(.system(size: 20, weight: .bold))
                         }
                         .frame(width: geo.size.width * 0.5, height: geo.size.height * 0.5)
                     }
                     
-                    // Bottom - blue with 3
+                    // Bottom - yellow with 7
                     ZStack {
                         Rectangle()
-                            .fill(Color.blue)
-                        Text("3")
-                            .foregroundColor(.white)
-                            .font(.system(size: 16, weight: .bold))
+                            .fill(Color(red: 0.95, green: 0.85, blue: 0.4))
+                        Rectangle()
+                            .stroke(Color.black, lineWidth: 2)
+                        Text("7")
+                            .foregroundColor(.black)
+                            .font(.system(size: 20, weight: .bold))
                     }
                     .frame(width: geo.size.width, height: geo.size.height * 0.5)
                 }

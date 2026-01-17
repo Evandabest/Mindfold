@@ -21,6 +21,16 @@ struct GameIconView: View {
                 StarBattleIcon()
             case "Netwalk":
                 NetwalkIcon()
+            case "LITS":
+                LITSIcon()
+            case "Mastermind":
+                MastermindIcon()
+            case "Flood Fill":
+                FloodFillIcon()
+            case "Bridges":
+                BridgesIcon()
+            case "Number Snake":
+                NumberSnakeIcon()
             default:
                 DefaultIcon(iconName: game.iconName)
             }
