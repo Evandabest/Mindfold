@@ -10,6 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selectedDifficulty: String = "Standard"
     @StateObject private var gameData = GameData()
+    @State private var showSettings = false
     
     var body: some View {
         NavigationStack {
@@ -19,7 +20,9 @@ struct ContentView: View {
                 
                 VStack(spacing: 0) {
                     // Header
-                    HeaderView(crownCount: 0)
+                    HeaderView(onSettingsTap: {
+                        showSettings = true
+                    })
                     
                     // Difficulty selector
                     HStack(spacing: 0) {
@@ -58,6 +61,9 @@ struct ContentView: View {
                 }
             }
             .toolbar(.hidden, for: .navigationBar)
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
+            }
         }
     }
     

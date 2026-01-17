@@ -8,18 +8,15 @@
 import SwiftUI
 
 struct HeaderView: View {
-    let crownCount: Int
+    var onSettingsTap: () -> Void = {}
     
     var body: some View {
         HStack {
-            // Crown icon with count
-            HStack(spacing: 4) {
-                Image(systemName: "crown.fill")
+            // Settings icon
+            Button(action: onSettingsTap) {
+                Image(systemName: "gearshape.fill")
                     .foregroundColor(.white)
-                    .font(.system(size: 20))
-                Text("\(crownCount)")
-                    .foregroundColor(.white)
-                    .font(.system(size: 20, weight: .medium))
+                    .font(.system(size: 22))
             }
             
             Spacer()
@@ -32,15 +29,10 @@ struct HeaderView: View {
             
             Spacer()
             
-            // Balance the header
-            HStack(spacing: 4) {
-                Image(systemName: "crown.fill")
-                    .foregroundColor(.clear)
-                    .font(.system(size: 20))
-                Text("\(crownCount)")
-                    .foregroundColor(.clear)
-                    .font(.system(size: 20, weight: .medium))
-            }
+            // Balance the header (invisible settings icon)
+            Image(systemName: "gearshape.fill")
+                .foregroundColor(.clear)
+                .font(.system(size: 22))
         }
         .padding(.horizontal, 20)
         .padding(.top, 10)

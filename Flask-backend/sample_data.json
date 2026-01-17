@@ -1,0 +1,2160 @@
+{
+  "shikaku": {
+    "board": [
+      [
+        0,
+        0,
+        4,
+        0,
+        3,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        12,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        3,
+        0,
+        0,
+        12,
+        0
+      ],
+      [
+        0,
+        0,
+        3,
+        2,
+        0,
+        0,
+        0
+      ]
+    ],
+    "cols": 7,
+    "num_rectangles": 11,
+    "rectangles": [
+      {
+        "area": 4,
+        "c0": 0,
+        "c1": 4,
+        "h": 1,
+        "r0": 0,
+        "r1": 1,
+        "w": 4
+      },
+      {
+        "area": 3,
+        "c0": 4,
+        "c1": 7,
+        "h": 1,
+        "r0": 0,
+        "r1": 1,
+        "w": 3
+      },
+      {
+        "area": 3,
+        "c0": 4,
+        "c1": 7,
+        "h": 1,
+        "r0": 1,
+        "r1": 2,
+        "w": 3
+      },
+      {
+        "area": 3,
+        "c0": 0,
+        "c1": 3,
+        "h": 1,
+        "r0": 6,
+        "r1": 7,
+        "w": 3
+      },
+      {
+        "area": 2,
+        "c0": 3,
+        "c1": 4,
+        "h": 2,
+        "r0": 6,
+        "r1": 8,
+        "w": 1
+      },
+      {
+        "area": 4,
+        "c0": 0,
+        "c1": 4,
+        "h": 1,
+        "r0": 4,
+        "r1": 5,
+        "w": 4
+      },
+      {
+        "area": 12,
+        "c0": 4,
+        "c1": 6,
+        "h": 6,
+        "r0": 2,
+        "r1": 8,
+        "w": 2
+      },
+      {
+        "area": 12,
+        "c0": 0,
+        "c1": 4,
+        "h": 3,
+        "r0": 1,
+        "r1": 4,
+        "w": 4
+      },
+      {
+        "area": 6,
+        "c0": 6,
+        "c1": 7,
+        "h": 6,
+        "r0": 2,
+        "r1": 8,
+        "w": 1
+      },
+      {
+        "area": 3,
+        "c0": 0,
+        "c1": 3,
+        "h": 1,
+        "r0": 7,
+        "r1": 8,
+        "w": 3
+      },
+      {
+        "area": 4,
+        "c0": 0,
+        "c1": 4,
+        "h": 1,
+        "r0": 5,
+        "r1": 6,
+        "w": 4
+      }
+    ],
+    "rows": 8,
+    "success": true
+  },
+  "takuzu": {
+    "givens_ratio": 0.25,
+    "puzzle": [
+      [
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        null,
+        1,
+        1,
+        0,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        null,
+        null,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1
+      ],
+      [
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null,
+        null
+      ],
+      [
+        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        0
+      ],
+      [
+        1,
+        null,
+        null,
+        null,
+        0,
+        null,
+        1,
+        0
+      ]
+    ],
+    "size": 8,
+    "solution": [
+      [
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0
+      ]
+    ],
+    "success": true
+  },
+  "starbattle": {
+    "regions": [
+      [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        2,
+        2
+      ],
+      [
+        5,
+        3,
+        3,
+        1,
+        1,
+        1,
+        2,
+        2
+      ],
+      [
+        5,
+        3,
+        3,
+        3,
+        3,
+        3,
+        4,
+        2
+      ],
+      [
+        5,
+        5,
+        6,
+        6,
+        3,
+        4,
+        4,
+        4
+      ],
+      [
+        5,
+        5,
+        5,
+        6,
+        6,
+        4,
+        4,
+        4
+      ],
+      [
+        5,
+        7,
+        5,
+        6,
+        6,
+        4,
+        7,
+        4
+      ],
+      [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ]
+    ],
+    "size": 8,
+    "solution_stars": [
+      [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ],
+      [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    ],
+    "star_positions": [
+      {
+        "col": 2,
+        "row": 0
+      },
+      {
+        "col": 5,
+        "row": 1
+      },
+      {
+        "col": 7,
+        "row": 2
+      },
+      {
+        "col": 4,
+        "row": 3
+      },
+      {
+        "col": 6,
+        "row": 4
+      },
+      {
+        "col": 0,
+        "row": 5
+      },
+      {
+        "col": 3,
+        "row": 6
+      },
+      {
+        "col": 1,
+        "row": 7
+      }
+    ],
+    "success": true
+  },
+  "netwalk": {
+    "cols": 6,
+    "puzzle_masks": [
+      [
+        3,
+        5,
+        9,
+        6,
+        10,
+        6
+      ],
+      [
+        5,
+        2,
+        5,
+        9,
+        12,
+        10
+      ],
+      [
+        10,
+        3,
+        11,
+        5,
+        3,
+        5
+      ],
+      [
+        14,
+        10,
+        9,
+        6,
+        2,
+        5
+      ],
+      [
+        10,
+        9,
+        3,
+        5,
+        4,
+        5
+      ],
+      [
+        1,
+        9,
+        5,
+        3,
+        9,
+        3
+      ]
+    ],
+    "rotations": [
+      [
+        3,
+        3,
+        1,
+        0,
+        2,
+        3
+      ],
+      [
+        2,
+        3,
+        2,
+        3,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        3,
+        1,
+        2
+      ],
+      [
+        1,
+        2,
+        1,
+        0,
+        2,
+        0
+      ],
+      [
+        1,
+        2,
+        1,
+        2,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        3,
+        1,
+        3,
+        1
+      ]
+    ],
+    "rows": 6,
+    "solution_masks": [
+      [
+        6,
+        10,
+        12,
+        6,
+        10,
+        12
+      ],
+      [
+        5,
+        4,
+        5,
+        3,
+        12,
+        5
+      ],
+      [
+        5,
+        3,
+        11,
+        10,
+        9,
+        5
+      ],
+      [
+        7,
+        10,
+        12,
+        6,
+        8,
+        5
+      ],
+      [
+        5,
+        6,
+        9,
+        5,
+        4,
+        5
+      ],
+      [
+        1,
+        3,
+        10,
+        9,
+        3,
+        9
+      ]
+    ],
+    "source": {
+      "col": 3,
+      "row": 1
+    },
+    "success": true,
+    "tiles": [
+      [
+        {
+          "col": 0,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 3,
+          "openings": [
+            "E",
+            "N"
+          ],
+          "rotation": 3,
+          "row": 0
+        },
+        {
+          "col": 1,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 5,
+          "openings": [
+            "S",
+            "N"
+          ],
+          "rotation": 3,
+          "row": 0
+        },
+        {
+          "col": 2,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 9,
+          "openings": [
+            "W",
+            "N"
+          ],
+          "rotation": 1,
+          "row": 0
+        },
+        {
+          "col": 3,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 6,
+          "openings": [
+            "S",
+            "E"
+          ],
+          "rotation": 0,
+          "row": 0
+        },
+        {
+          "col": 4,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 10,
+          "openings": [
+            "W",
+            "E"
+          ],
+          "rotation": 2,
+          "row": 0
+        },
+        {
+          "col": 5,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 6,
+          "openings": [
+            "S",
+            "E"
+          ],
+          "rotation": 3,
+          "row": 0
+        }
+      ],
+      [
+        {
+          "col": 0,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 5,
+          "openings": [
+            "S",
+            "N"
+          ],
+          "rotation": 2,
+          "row": 1
+        },
+        {
+          "col": 1,
+          "degree": 1,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "end",
+          "mask": 2,
+          "openings": [
+            "E"
+          ],
+          "rotation": 3,
+          "row": 1
+        },
+        {
+          "col": 2,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 5,
+          "openings": [
+            "S",
+            "N"
+          ],
+          "rotation": 2,
+          "row": 1
+        },
+        {
+          "col": 3,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": true,
+          "kind": "elbow",
+          "mask": 9,
+          "openings": [
+            "W",
+            "N"
+          ],
+          "rotation": 3,
+          "row": 1
+        },
+        {
+          "col": 4,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 12,
+          "openings": [
+            "S",
+            "W"
+          ],
+          "rotation": 0,
+          "row": 1
+        },
+        {
+          "col": 5,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 10,
+          "openings": [
+            "W",
+            "E"
+          ],
+          "rotation": 1,
+          "row": 1
+        }
+      ],
+      [
+        {
+          "col": 0,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 10,
+          "openings": [
+            "W",
+            "E"
+          ],
+          "rotation": 1,
+          "row": 2
+        },
+        {
+          "col": 1,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 3,
+          "openings": [
+            "E",
+            "N"
+          ],
+          "rotation": 0,
+          "row": 2
+        },
+        {
+          "col": 2,
+          "degree": 3,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "tee",
+          "mask": 11,
+          "openings": [
+            "W",
+            "E",
+            "N"
+          ],
+          "rotation": 0,
+          "row": 2
+        },
+        {
+          "col": 3,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 5,
+          "openings": [
+            "S",
+            "N"
+          ],
+          "rotation": 3,
+          "row": 2
+        },
+        {
+          "col": 4,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 3,
+          "openings": [
+            "E",
+            "N"
+          ],
+          "rotation": 1,
+          "row": 2
+        },
+        {
+          "col": 5,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 5,
+          "openings": [
+            "S",
+            "N"
+          ],
+          "rotation": 2,
+          "row": 2
+        }
+      ],
+      [
+        {
+          "col": 0,
+          "degree": 3,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "tee",
+          "mask": 14,
+          "openings": [
+            "S",
+            "W",
+            "E"
+          ],
+          "rotation": 1,
+          "row": 3
+        },
+        {
+          "col": 1,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 10,
+          "openings": [
+            "W",
+            "E"
+          ],
+          "rotation": 2,
+          "row": 3
+        },
+        {
+          "col": 2,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 9,
+          "openings": [
+            "W",
+            "N"
+          ],
+          "rotation": 1,
+          "row": 3
+        },
+        {
+          "col": 3,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 6,
+          "openings": [
+            "S",
+            "E"
+          ],
+          "rotation": 0,
+          "row": 3
+        },
+        {
+          "col": 4,
+          "degree": 1,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "end",
+          "mask": 2,
+          "openings": [
+            "E"
+          ],
+          "rotation": 2,
+          "row": 3
+        },
+        {
+          "col": 5,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 5,
+          "openings": [
+            "S",
+            "N"
+          ],
+          "rotation": 0,
+          "row": 3
+        }
+      ],
+      [
+        {
+          "col": 0,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 10,
+          "openings": [
+            "W",
+            "E"
+          ],
+          "rotation": 1,
+          "row": 4
+        },
+        {
+          "col": 1,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 9,
+          "openings": [
+            "W",
+            "N"
+          ],
+          "rotation": 2,
+          "row": 4
+        },
+        {
+          "col": 2,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 3,
+          "openings": [
+            "E",
+            "N"
+          ],
+          "rotation": 1,
+          "row": 4
+        },
+        {
+          "col": 3,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 5,
+          "openings": [
+            "S",
+            "N"
+          ],
+          "rotation": 2,
+          "row": 4
+        },
+        {
+          "col": 4,
+          "degree": 1,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "end",
+          "mask": 4,
+          "openings": [
+            "S"
+          ],
+          "rotation": 0,
+          "row": 4
+        },
+        {
+          "col": 5,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 5,
+          "openings": [
+            "S",
+            "N"
+          ],
+          "rotation": 0,
+          "row": 4
+        }
+      ],
+      [
+        {
+          "col": 0,
+          "degree": 1,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "end",
+          "mask": 1,
+          "openings": [
+            "N"
+          ],
+          "rotation": 0,
+          "row": 5
+        },
+        {
+          "col": 1,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 9,
+          "openings": [
+            "W",
+            "N"
+          ],
+          "rotation": 3,
+          "row": 5
+        },
+        {
+          "col": 2,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "straight",
+          "mask": 5,
+          "openings": [
+            "S",
+            "N"
+          ],
+          "rotation": 3,
+          "row": 5
+        },
+        {
+          "col": 3,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 3,
+          "openings": [
+            "E",
+            "N"
+          ],
+          "rotation": 1,
+          "row": 5
+        },
+        {
+          "col": 4,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 9,
+          "openings": [
+            "W",
+            "N"
+          ],
+          "rotation": 3,
+          "row": 5
+        },
+        {
+          "col": 5,
+          "degree": 2,
+          "is_powered": false,
+          "is_source": false,
+          "kind": "elbow",
+          "mask": 3,
+          "openings": [
+            "E",
+            "N"
+          ],
+          "rotation": 1,
+          "row": 5
+        }
+      ]
+    ]
+  },
+  "lits": {
+    "cols": 7,
+    "placements": {
+      "0": {
+        "adj_mask": 169651208192,
+        "blocks": [
+          831076171776,
+          1662152343552,
+          3324304687104,
+          415538085888
+        ],
+        "cells": [
+          [
+            5,
+            4
+          ],
+          [
+            5,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            5,
+            3
+          ]
+        ],
+        "mask": 4123168604160,
+        "region_id": 0,
+        "shape": "I"
+      },
+      "1": {
+        "adj_mask": 69260574848,
+        "blocks": [
+          6340608,
+          811597824,
+          49536,
+          103884521472
+        ],
+        "cells": [
+          [
+            3,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "mask": 34630287360,
+        "region_id": 1,
+        "shape": "I"
+      },
+      "2": {
+        "adj_mask": 485620776960,
+        "blocks": [
+          811597824,
+          1623195648,
+          3246391296,
+          103884521472,
+          207769042944,
+          415538085888,
+          6492782592,
+          831076171776,
+          12681216,
+          25362432
+        ],
+        "cells": [
+          [
+            4,
+            1
+          ],
+          [
+            4,
+            2
+          ],
+          [
+            4,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "mask": 3766484992,
+        "region_id": 2,
+        "shape": "T"
+      },
+      "3": {
+        "adj_mask": 29640322,
+        "blocks": [
+          49536,
+          99072,
+          12681216,
+          6340608,
+          198144,
+          25362432,
+          396288,
+          50724864,
+          387,
+          774
+        ],
+        "cells": [
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "mask": 229632,
+        "region_id": 3,
+        "shape": "L"
+      },
+      "4": {
+        "adj_mask": 8757973056,
+        "blocks": [
+          792576,
+          1585152,
+          12985565184,
+          101449728,
+          202899456,
+          25971130368,
+          12384
+        ],
+        "cells": [
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            1,
+            6
+          ]
+        ],
+        "mask": 68689920,
+        "region_id": 4,
+        "shape": "S"
+      },
+      "5": {
+        "adj_mask": 275464,
+        "blocks": [
+          396288,
+          12384,
+          792576,
+          6192,
+          3096
+        ],
+        "cells": [
+          [
+            0,
+            5
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            0,
+            6
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "mask": 2160,
+        "region_id": 5,
+        "shape": "L"
+      },
+      "6": {
+        "adj_mask": 1936,
+        "blocks": [
+          3096,
+          387,
+          1548,
+          774
+        ],
+        "cells": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "mask": 15,
+        "region_id": 6,
+        "shape": "I"
+      }
+    },
+    "regions": [
+      [
+        6,
+        6,
+        6,
+        6,
+        5,
+        5,
+        5
+      ],
+      [
+        6,
+        3,
+        3,
+        5,
+        5,
+        4,
+        4
+      ],
+      [
+        1,
+        3,
+        3,
+        3,
+        3,
+        4,
+        4
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        3,
+        4,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "rows": 6,
+    "solution_filled": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      [
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false
+      ],
+      [
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "solution_shape": [
+      [
+        "I",
+        "I",
+        "I",
+        "I",
+        "L",
+        "L",
+        "L"
+      ],
+      [
+        null,
+        "L",
+        null,
+        null,
+        "L",
+        null,
+        "S"
+      ],
+      [
+        "I",
+        "L",
+        "L",
+        "L",
+        null,
+        "S",
+        "S"
+      ],
+      [
+        "I",
+        null,
+        "T",
+        null,
+        null,
+        "S",
+        null
+      ],
+      [
+        "I",
+        "T",
+        "T",
+        "T",
+        null,
+        null,
+        null
+      ],
+      [
+        "I",
+        null,
+        null,
+        "I",
+        "I",
+        "I",
+        "I"
+      ]
+    ],
+    "success": true
+  },
+  "mastermind": {
+    "allow_repeats": true,
+    "code": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "code_len": 4,
+    "max_attempts": 10,
+    "num_colors": 4,
+    "success": true
+  },
+  "floodfill": {
+    "cols": 12,
+    "grid": [
+      [
+        1,
+        0,
+        3,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        3,
+        1,
+        3,
+        2,
+        0,
+        3,
+        3,
+        3,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        3,
+        3,
+        0,
+        0,
+        0,
+        0,
+        3,
+        3,
+        0,
+        2,
+        2,
+        0
+      ],
+      [
+        1,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        2,
+        3,
+        2,
+        0,
+        3,
+        0
+      ],
+      [
+        3,
+        0,
+        2,
+        1,
+        1,
+        0,
+        0,
+        3,
+        3,
+        0,
+        1,
+        1
+      ],
+      [
+        2,
+        2,
+        2,
+        0,
+        0,
+        2,
+        2,
+        3,
+        3,
+        3,
+        3,
+        1
+      ],
+      [
+        2,
+        1,
+        3,
+        2,
+        0,
+        2,
+        2,
+        0,
+        3,
+        3,
+        3,
+        3
+      ],
+      [
+        2,
+        1,
+        2,
+        2,
+        0,
+        0,
+        3,
+        1,
+        0,
+        3,
+        3,
+        2
+      ],
+      [
+        2,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        3,
+        1,
+        3,
+        3,
+        3
+      ],
+      [
+        0,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        2,
+        3,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        3,
+        1,
+        1,
+        1,
+        3
+      ]
+    ],
+    "move_limit": 8,
+    "num_colors": 4,
+    "rows": 12,
+    "solution": [
+      [
+        8,
+        10,
+        0
+      ],
+      [
+        5,
+        6,
+        2
+      ],
+      [
+        4,
+        1,
+        1
+      ],
+      [
+        2,
+        8,
+        3
+      ],
+      [
+        3,
+        1,
+        0
+      ],
+      [
+        9,
+        2,
+        2
+      ],
+      [
+        1,
+        0,
+        1
+      ]
+    ],
+    "success": true
+  },
+  "bridges": {
+    "cols": 9,
+    "nodes": [
+      {
+        "col": 5,
+        "degree": 3,
+        "row": 3
+      },
+      {
+        "col": 0,
+        "degree": 4,
+        "row": 5
+      },
+      {
+        "col": 6,
+        "degree": 2,
+        "row": 6
+      },
+      {
+        "col": 7,
+        "degree": 2,
+        "row": 7
+      },
+      {
+        "col": 8,
+        "degree": 1,
+        "row": 8
+      },
+      {
+        "col": 1,
+        "degree": 2,
+        "row": 3
+      },
+      {
+        "col": 7,
+        "degree": 3,
+        "row": 5
+      },
+      {
+        "col": 7,
+        "degree": 2,
+        "row": 1
+      },
+      {
+        "col": 7,
+        "degree": 1,
+        "row": 0
+      },
+      {
+        "col": 6,
+        "degree": 4,
+        "row": 8
+      },
+      {
+        "col": 7,
+        "degree": 3,
+        "row": 8
+      },
+      {
+        "col": 0,
+        "degree": 2,
+        "row": 2
+      },
+      {
+        "col": 7,
+        "degree": 2,
+        "row": 6
+      },
+      {
+        "col": 2,
+        "degree": 3,
+        "row": 8
+      },
+      {
+        "col": 0,
+        "degree": 4,
+        "row": 8
+      },
+      {
+        "col": 7,
+        "degree": 4,
+        "row": 3
+      }
+    ],
+    "rows": 9,
+    "solution_edges": [
+      {
+        "count": 2,
+        "u": 0,
+        "v": 5
+      },
+      {
+        "count": 1,
+        "u": 0,
+        "v": 15
+      },
+      {
+        "count": 2,
+        "u": 1,
+        "v": 11
+      },
+      {
+        "count": 2,
+        "u": 1,
+        "v": 14
+      },
+      {
+        "count": 2,
+        "u": 2,
+        "v": 9
+      },
+      {
+        "count": 1,
+        "u": 3,
+        "v": 10
+      },
+      {
+        "count": 1,
+        "u": 3,
+        "v": 12
+      },
+      {
+        "count": 1,
+        "u": 4,
+        "v": 10
+      },
+      {
+        "count": 1,
+        "u": 6,
+        "v": 12
+      },
+      {
+        "count": 2,
+        "u": 6,
+        "v": 15
+      },
+      {
+        "count": 1,
+        "u": 7,
+        "v": 8
+      },
+      {
+        "count": 1,
+        "u": 7,
+        "v": 15
+      },
+      {
+        "count": 1,
+        "u": 9,
+        "v": 10
+      },
+      {
+        "count": 1,
+        "u": 9,
+        "v": 13
+      },
+      {
+        "count": 2,
+        "u": 13,
+        "v": 14
+      }
+    ],
+    "success": true
+  },
+  "numbersnake": {
+    "clues": [
+      {
+        "col": 3,
+        "row": 3,
+        "value": 1
+      },
+      {
+        "col": 4,
+        "row": 4,
+        "value": 2
+      },
+      {
+        "col": 2,
+        "row": 4,
+        "value": 3
+      },
+      {
+        "col": 0,
+        "row": 1,
+        "value": 4
+      },
+      {
+        "col": 3,
+        "row": 0,
+        "value": 5
+      },
+      {
+        "col": 3,
+        "row": 1,
+        "value": 6
+      }
+    ],
+    "cols": 5,
+    "rows": 5,
+    "solution_path": [
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        1,
+        3
+      ]
+    ],
+    "success": true
+  }
+}
