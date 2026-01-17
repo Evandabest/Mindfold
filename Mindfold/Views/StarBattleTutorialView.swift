@@ -30,7 +30,7 @@ struct StarBattleTutorialView: View {
                     // Title
                     Text("How to play")
                         .foregroundColor(.white)
-                        .font(.system(size: 24, weight: .bold, design: .serif))
+                        .font(.system(size: 24, weight: .bold))
                     
                     Spacer()
                     
@@ -50,14 +50,14 @@ struct StarBattleTutorialView: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("• Each Row and Column has to have only one Star")
                                 .foregroundColor(.white)
-                                .font(.system(size: 16, design: .serif))
+                                .font(.system(size: 16))
                         }
                         
                         // Rule 2
                         VStack(alignment: .leading, spacing: 12) {
                             Text("• Stars can't touch - not even diagonally:")
                                 .foregroundColor(.white)
-                                .font(.system(size: 16, design: .serif))
+                                .font(.system(size: 16))
                             
                             // Examples
                             HStack(spacing: 30) {
@@ -86,7 +86,7 @@ struct StarBattleTutorialView: View {
                                     
                                     Text("Correct")
                                         .foregroundColor(.white)
-                                        .font(.system(size: 14, design: .serif))
+                                        .font(.system(size: 14))
                                 }
                                 
                                 // Incorrect example
@@ -118,7 +118,7 @@ struct StarBattleTutorialView: View {
                                     
                                     Text("Incorrect")
                                         .foregroundColor(.white)
-                                        .font(.system(size: 14, design: .serif))
+                                        .font(.system(size: 14))
                                 }
                             }
                             .padding(.leading, 20)
@@ -128,14 +128,14 @@ struct StarBattleTutorialView: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("• Each region marked by color, has to have a Star inside.")
                                 .foregroundColor(.white)
-                                .font(.system(size: 16, design: .serif))
+                                .font(.system(size: 16))
                         }
                         
                         // Rule 4
                         VStack(alignment: .leading, spacing: 12) {
                             Text("• No guessing is needed, only deduction!")
                                 .foregroundColor(.white)
-                                .font(.system(size: 16, design: .serif))
+                                .font(.system(size: 16))
                         }
                     }
                     .padding(.horizontal, 20)

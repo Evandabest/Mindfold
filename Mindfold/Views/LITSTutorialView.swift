@@ -30,7 +30,7 @@ struct LITSTutorialView: View {
                     // Title
                     Text("How to play")
                         .foregroundColor(.white)
-                        .font(.system(size: 24, weight: .bold, design: .serif))
+                        .font(.system(size: 24, weight: .bold))
                     
                     Spacer()
                     

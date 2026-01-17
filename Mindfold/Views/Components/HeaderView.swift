@@ -24,8 +24,7 @@ struct HeaderView: View {
             // Title
             Text("Mindfold")
                 .foregroundColor(.white)
-                .font(.system(size: 24, weight: .medium, design: .serif))
-                .italic()
+                .font(.system(size: 24, weight: .medium))
             
             Spacer()
             
