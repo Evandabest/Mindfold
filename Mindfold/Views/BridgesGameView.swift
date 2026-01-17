@@ -111,7 +111,7 @@ struct BridgesGameView: View {
     private func gameBoardView(puzzle: BridgesPuzzle) -> some View {
         GeometryReader { geometry in
             let availableWidth = geometry.size.width - 40
-            let availableHeight = geometry.size.height - 100
+            let availableHeight = geometry.size.height - 180
             let cellSize = min(availableWidth / CGFloat(puzzle.cols), availableHeight / CGFloat(puzzle.rows))
             let gridWidth = cellSize * CGFloat(puzzle.cols)
             let gridHeight = cellSize * CGFloat(puzzle.rows)
@@ -119,15 +119,56 @@ struct BridgesGameView: View {
             VStack(spacing: 0) {
                 Spacer()
                 
-                // Grid
-                ZStack {
-                    // Draw edges first (behind nodes)
-                    ForEach(Array(gameState.edges.keys), id: \.self) { key in
-                        if let count = gameState.edges[key], count > 0 {
-                            EdgeView(
-                                from: puzzle.nodes[key.u],
-                                to: puzzle.nodes[key.v],
-                                count: count,
+                // Grid (centered)
+                HStack {
+                    Spacer()
+                    
+                    ZStack {
+                        // Grid background
+                        Canvas { context, size in
+                            // Draw vertical lines
+                            for col in 0...puzzle.cols {
+                                let x = CGFloat(col) * cellSize
+                                var path = Path()
+                                path.move(to: CGPoint(x: x, y: 0))
+                                path.addLine(to: CGPoint(x: x, y: gridHeight))
+                                context.stroke(path, with: .color(Color(white: 0.3)), lineWidth: 1)
+                            }
+                            
+                            // Draw horizontal lines
+                            for row in 0...puzzle.rows {
+                                let y = CGFloat(row) * cellSize
+                                var path = Path()
+                                path.move(to: CGPoint(x: 0, y: y))
+                                path.addLine(to: CGPoint(x: gridWidth, y: y))
+                                context.stroke(path, with: .color(Color(white: 0.3)), lineWidth: 1)
+                            }
+                        }
+                        .frame(width: gridWidth, height: gridHeight)
+                        
+                        // Draw edges (behind nodes)
+                        ForEach(Array(gameState.edges.keys), id: \.self) { key in
+                            if let count = gameState.edges[key], count > 0 {
+                                EdgeView(
+                                    from: puzzle.nodes[key.u],
+                                    to: puzzle.nodes[key.v],
+                                    count: count,
+                                    cellSize: cellSize,
+                                    gridWidth: gridWidth,
+                                    gridHeight: gridHeight,
+                                    rows: puzzle.rows,
+                                    cols: puzzle.cols
+                                )
+                            }
+                        }
+                        
+                        // Draw nodes on top
+                        ForEach(Array(puzzle.nodes.enumerated()), id: \.offset) { index, node in
+                            NodeView(
+                                node: node,
+                                index: index,
+                                state: gameState.nodeStates[index] ?? .incomplete,
+                                isSelected: false,
                                 cellSize: cellSize,
                                 gridWidth: gridWidth,
                                 gridHeight: gridHeight,
@@ -136,26 +177,13 @@ struct BridgesGameView: View {
                             )
                         }
                     }
-                    
-                    // Draw nodes on top
-                    ForEach(Array(puzzle.nodes.enumerated()), id: \.offset) { index, node in
-                        NodeView(
-                            node: node,
-                            index: index,
-                            state: gameState.nodeStates[index] ?? .incomplete,
-                            isSelected: false,
-                            cellSize: cellSize,
-                            gridWidth: gridWidth,
-                            gridHeight: gridHeight,
-                            rows: puzzle.rows,
-                            cols: puzzle.cols
-                        )
+                    .frame(width: gridWidth, height: gridHeight)
+                    .contentShape(Rectangle())
+                    .onTapGesture { location in
+                        handleGridTap(location: location, puzzle: puzzle, cellSize: cellSize)
                     }
-                }
-                .frame(width: gridWidth, height: gridHeight)
-                .contentShape(Rectangle())
-                .onTapGesture { location in
-                    handleGridTap(location: location, puzzle: puzzle, cellSize: cellSize)
+                    
+                    Spacer()
                 }
                 
                 Spacer()

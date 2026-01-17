@@ -129,49 +129,49 @@ struct StarBattleGameView: View {
             let boardHeight = cellSize * CGFloat(puzzle.size) + CGFloat(puzzle.size - 1) * 2
             
             VStack(spacing: 0) {
-                // Game Grid
-                VStack(spacing: 2) {
-                    ForEach(0..<puzzle.size, id: \.self) { row in
-                        HStack(spacing: 2) {
-                            ForEach(0..<puzzle.size, id: \.self) { column in
-                                StarBattleGameCell(
-                                    cellState: gameState.grid[row][column],
-                                    regionColor: gameState.getRegionColor(row: row, col: column),
-                                    size: cellSize,
-                                    hasViolation: gameState.violationCells.contains(GridPosition(row: row, col: column)),
-                                    onTap: {
-                                        gameState.toggleCell(row: row, col: column, autofill: autofillEnabled)
-                                    }
-                                )
+                Spacer()
+                
+                VStack(spacing: 20) {
+                    // Game Grid (centered)
+                    VStack(spacing: 2) {
+                        ForEach(0..<puzzle.size, id: \.self) { row in
+                            HStack(spacing: 2) {
+                                ForEach(0..<puzzle.size, id: \.self) { column in
+                                    StarBattleGameCell(
+                                        cellState: gameState.grid[row][column],
+                                        regionColor: gameState.getRegionColor(row: row, col: column),
+                                        size: cellSize,
+                                        hasViolation: gameState.violationCells.contains(GridPosition(row: row, col: column)),
+                                        onTap: {
+                                            gameState.toggleCell(row: row, col: column, autofill: autofillEnabled)
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
-                }
-                .frame(width: boardWidth, height: boardHeight)
-                .padding(.horizontal, 20)
-                
-                // Autofill toggle
-                HStack {
-                    Text("Autofill")
-                        .foregroundColor(.white)
-                        .font(.system(size: 16, weight: .medium))
+                    .frame(width: boardWidth, height: boardHeight)
                     
-                    Toggle("", isOn: Binding(
-                        get: { autofillEnabled },
-                        set: { newValue in
-                            autofillEnabled = newValue
-                            // When toggling off, clear all black dots
-                            if !newValue {
-                                gameState.clearAllDots()
+                    // Autofill toggle
+                    HStack {
+                        Text("Autofill")
+                            .foregroundColor(.white)
+                            .font(.system(size: 16, weight: .medium))
+                        
+                        Toggle("", isOn: Binding(
+                            get: { autofillEnabled },
+                            set: { newValue in
+                                autofillEnabled = newValue
+                                // When toggling off, clear all black dots
+                                if !newValue {
+                                    gameState.clearAllDots()
+                                }
                             }
-                        }
-                    ))
-                    .toggleStyle(SwitchToggleStyle(tint: .blue))
-                }
-                .padding(.top, 20)
-                .padding(.horizontal, 20)
-                
-                // Control buttons
+                        ))
+                        .toggleStyle(SwitchToggleStyle(tint: .blue))
+                    }
+                    
+                    // Control buttons
                 HStack(spacing: 30) {
                     Button(action: {
                         gameState.undo()
@@ -195,8 +195,10 @@ struct StarBattleGameView: View {
                             .cornerRadius(12)
                     }
                 }
-                .padding(.top, 10)
-                .padding(.bottom, 10)
+                }
+                .frame(maxWidth: .infinity)
+                
+                Spacer()
             }
         }
     }

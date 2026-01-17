@@ -122,40 +122,45 @@ struct NetwalkGameView: View {
             let boardHeight = cellSize * CGFloat(puzzle.rows) + 2 * CGFloat(puzzle.rows - 1)
             
             VStack(spacing: 0) {
-                VStack(spacing: 2) {
-                    ForEach(0..<puzzle.rows, id: \.self) { row in
-                        HStack(spacing: 2) {
-                            ForEach(0..<puzzle.cols, id: \.self) { column in
-                                NetwalkGameCell(
-                                    mask: gameState.masks[row][column],
-                                    isSource: gameState.isSource(row: row, col: column),
-                                    isPowered: gameState.isPowered(row: row, col: column),
-                                    size: cellSize,
-                                    onTap: {
-                                        gameState.rotateTile(row: row, col: column)
-                                    }
-                                )
+                Spacer()
+                
+                VStack(spacing: 20) {
+                    // Game Grid (centered)
+                    VStack(spacing: 2) {
+                        ForEach(0..<puzzle.rows, id: \.self) { row in
+                            HStack(spacing: 2) {
+                                ForEach(0..<puzzle.cols, id: \.self) { column in
+                                    NetwalkGameCell(
+                                        mask: gameState.masks[row][column],
+                                        isSource: gameState.isSource(row: row, col: column),
+                                        isPowered: gameState.isPowered(row: row, col: column),
+                                        size: cellSize,
+                                        onTap: {
+                                            gameState.rotateTile(row: row, col: column)
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
+                    .frame(width: boardWidth, height: boardHeight)
+                    
+                    // Reset button
+                    Button(action: {
+                        gameState.reset(puzzleMasks: puzzle.puzzleMasks, initialRotations: puzzle.rotations)
+                    }) {
+                        Text("Reset")
+                            .foregroundColor(.white)
+                            .font(.system(size: 16, weight: .semibold))
+                            .padding(.horizontal, 24)
+                            .padding(.vertical, 12)
+                            .background(Color.red.opacity(0.7))
+                            .cornerRadius(8)
+                    }
                 }
-                .frame(width: boardWidth, height: boardHeight)
-                .padding(.horizontal, 20)
+                .frame(maxWidth: .infinity)
                 
-                // Reset button
-                Button(action: {
-                    gameState.reset(puzzleMasks: puzzle.puzzleMasks, initialRotations: puzzle.rotations)
-                }) {
-                    Text("Reset")
-                        .foregroundColor(.white)
-                        .font(.system(size: 16, weight: .semibold))
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 12)
-                        .background(Color.red.opacity(0.7))
-                        .cornerRadius(8)
-                }
-                .padding(.top, 20)
-                .padding(.bottom, 10)
+                Spacer()
             }
         }
     }

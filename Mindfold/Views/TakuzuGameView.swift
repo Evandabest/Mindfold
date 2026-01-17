@@ -128,52 +128,56 @@ struct TakuzuGameView: View {
             let boardHeight = cellSize * CGFloat(puzzle.size) + CGFloat(puzzle.size - 1) * 2
             
             VStack(spacing: 0) {
-                // Game Grid
-                VStack(spacing: 2) {
-                    ForEach(0..<puzzle.size, id: \.self) { row in
-                        HStack(spacing: 2) {
-                            ForEach(0..<puzzle.size, id: \.self) { column in
-                                TakuzuGameCell(
-                                    cellState: gameState.grid[row][column],
-                                    size: cellSize,
-                                    hasViolation: gameState.violationCells.contains(GridPosition(row: row, col: column)),
-                                    onTap: {
-                                        gameState.toggleCell(row: row, col: column)
-                                    }
-                                )
+                Spacer()
+                
+                VStack(spacing: 20) {
+                    // Game Grid (centered)
+                    VStack(spacing: 2) {
+                        ForEach(0..<puzzle.size, id: \.self) { row in
+                            HStack(spacing: 2) {
+                                ForEach(0..<puzzle.size, id: \.self) { column in
+                                    TakuzuGameCell(
+                                        cellState: gameState.grid[row][column],
+                                        size: cellSize,
+                                        hasViolation: gameState.violationCells.contains(GridPosition(row: row, col: column)),
+                                        onTap: {
+                                            gameState.toggleCell(row: row, col: column)
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
-                }
-                .frame(width: boardWidth, height: boardHeight)
-                .padding(.horizontal, 20)
-                
-                // Control buttons
-                HStack(spacing: 30) {
-                    Button(action: {
-                        gameState.undo()
-                    }) {
-                        Image(systemName: "arrow.uturn.backward")
-                            .font(.system(size: 28))
-                            .foregroundColor(.white)
-                            .frame(width: 60, height: 60)
-                            .background(Color(white: 0.2))
-                            .cornerRadius(12)
-                    }
+                    .frame(width: boardWidth, height: boardHeight)
                     
-                    Button(action: {
-                        gameState.reset(with: puzzle.puzzle)
-                    }) {
-                        Image(systemName: "eraser")
-                            .font(.system(size: 28))
-                            .foregroundColor(.white)
-                            .frame(width: 60, height: 60)
-                            .background(Color(white: 0.2))
-                            .cornerRadius(12)
+                    // Control buttons
+                    HStack(spacing: 30) {
+                        Button(action: {
+                            gameState.undo()
+                        }) {
+                            Image(systemName: "arrow.uturn.backward")
+                                .font(.system(size: 28))
+                                .foregroundColor(.white)
+                                .frame(width: 60, height: 60)
+                                .background(Color(white: 0.2))
+                                .cornerRadius(12)
+                        }
+                        
+                        Button(action: {
+                            gameState.reset(with: puzzle.puzzle)
+                        }) {
+                            Image(systemName: "eraser")
+                                .font(.system(size: 28))
+                                .foregroundColor(.white)
+                                .frame(width: 60, height: 60)
+                                .background(Color(white: 0.2))
+                                .cornerRadius(12)
+                        }
                     }
                 }
-                .padding(.top, 20)
-                .padding(.bottom, 10)
+                .frame(maxWidth: .infinity)
+                
+                Spacer()
             }
         }
     }
